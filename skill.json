@@ -1,0 +1,522 @@
+{
+  "schema_version": "workspace-skill-manifest.v1",
+  "version": 1775307369868,
+  "skills": {
+    "web-access": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "web-access",
+        "description": "所有联网操作必须通过此 skill 处理，包括：搜索、网页抓取、登录后操作、网络交互等。 触发场景：用户要求搜索信息、查看网页内容、访问需要登录的网站、操作网页界面、抓取社交媒体内容（小红书、微博、推特等）、读取动态渲染页面、以及任何需要真实浏览器环境的网络任务。",
+        "version_text": "2.4.1",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868635Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868638Z",
+      "config": {}
+    },
+    "pptx": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "pptx",
+        "description": "Use this skill any time a .pptx file is involved in any way — as input, output, or both. This includes: creating slide decks, pitch decks, or presentations; reading, parsing, or extracting text from any .pptx file (even if the extracted content will be used elsewhere, like in an email or summary); editing, modifying, or updating existing presentations; combining or splitting slide files; working with templates, layouts, speaker notes, or comments. Trigger whenever the user mentions \"deck,\" \"slides,\" \"presentation,\" or references a .pptx filename, regardless of what they plan to do with the content afterward. If a .pptx file needs to be opened, created, or touched, use this skill.",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868549Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868552Z",
+      "config": {}
+    },
+    "pdf-20260401005740": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "pdf-20260401005740",
+        "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+        "version_text": "",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868472Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868475Z",
+      "config": {}
+    },
+    "pdf": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "pdf",
+        "description": "Use this skill whenever the user wants to do anything with PDF files. This includes reading or extracting text/tables from PDFs, combining or merging multiple PDFs into one, splitting PDFs apart, rotating pages, adding watermarks, creating new PDFs, filling PDF forms, encrypting/decrypting PDFs, extracting images, and OCR on scanned PDFs to make them searchable. If the user mentions a .pdf file or asks to produce one, use this skill.",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868406Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868409Z",
+      "config": {}
+    },
+    "xlsx-20260401005742": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "xlsx-20260401005742",
+        "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+        "version_text": "",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868874Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868877Z",
+      "config": {}
+    },
+    "xlsx": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "xlsx",
+        "description": "Use this skill any time a spreadsheet file is the primary input or output. This means any task where the user wants to: open, read, edit, or fix an existing .xlsx, .xlsm, .csv, or .tsv file (e.g., adding columns, computing formulas, formatting, charting, cleaning messy data); create a new spreadsheet from scratch or from other data sources; or convert between tabular file formats. Trigger especially when the user references a spreadsheet file by name or path — even casually (like \"the xlsx in my downloads\") — and wants something done to it or produced from it. Also trigger for cleaning or restructuring messy tabular data files (malformed rows, misplaced headers, junk data) into proper spreadsheets. The deliverable must be a spreadsheet file. Do NOT trigger when the primary deliverable is a Word document, HTML report, standalone Python script, database pipeline, or Google Sheets API integration, even if tabular data is involved.",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868795Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868798Z",
+      "config": {}
+    },
+    "browser_visible": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "browser_visible",
+        "description": "当用户希望打开真实可见的浏览器窗口（而非后台无头模式）时，使用 browser_use 的 headed 参数启动浏览器，随后可正常 open/snapshot/click 等。适用于用户想亲眼看到页面、演示或调试场景。",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867723Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867726Z",
+      "config": {}
+    },
+    "cron": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "cron",
+        "description": "Use this skill only for scheduled or recurring tasks. Manage cron jobs with copaw cron list/create/get/state/pause/resume/delete/run. Always pass --agent-id explicitly. | 仅在需要未来定时执行或周期执行时使用本 skill。用 copaw cron list/create/get/state/pause/resume/delete/run 管理任务；必须显式传 --agent-id",
+        "version_text": "1.1",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867860Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867863Z",
+      "config": {}
+    },
+    "docx": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "docx",
+        "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of \"Word doc\", \"word document\", \".docx\", or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a \"report\", \"memo\", \"letter\", \"template\", or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868087Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868090Z",
+      "config": {}
+    },
+    "docx-20260401005738": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "docx-20260401005738",
+        "description": "Use this skill whenever the user wants to create, read, edit, or manipulate Word documents (.docx files). Triggers include: any mention of \"Word doc\", \"word document\", \".docx\", or requests to produce professional documents with formatting like tables of contents, headings, page numbers, or letterheads. Also use when extracting or reorganizing content from .docx files, inserting or replacing images in documents, performing find-and-replace in Word files, working with tracked changes or comments, or converting content into a polished Word document. If the user asks for a \"report\", \"memo\", \"letter\", \"template\", or similar deliverable as a Word or .docx file, use this skill. Do NOT use for PDFs, spreadsheets, Google Docs, or general coding tasks unrelated to document generation.",
+        "version_text": "",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868177Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868180Z",
+      "config": {}
+    },
+    "cron-20260401005736": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "cron-20260401005736",
+        "description": "通过 copaw 命令管理定时任务 - 创建、查询、暂停、恢复、删除任务",
+        "version_text": "",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867914Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867917Z",
+      "config": {}
+    },
+    "copaw_source_index": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "copaw_source_index",
+        "description": "将用户问题中的主题、关键词映射到 CoPaw 官方文档路径与常见源码入口，减少盲目搜索。适用于内置 QA Agent 在回答安装、配置、技能、MCP、多智能体、记忆、CLI 等问题时快速选定要读的文件。",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867790Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867793Z",
+      "config": {}
+    },
+    "dingtalk_channel": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "dingtalk_channel",
+        "description": "使用可视浏览器自动完成 CoPaw 的钉钉频道接入。适用于用户提到钉钉、DingTalk、开发者后台、Client ID、Client Secret、机器人、Stream 模式、绑定或配置 channel 的场景；支持遇到登录页时暂停，等待用户登录后继续。",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867991Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867994Z",
+      "config": {}
+    },
+    "guidance": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "guidance",
+        "description": "回答用户关于 CoPaw 安装与配置的问题：优先定位并阅读本地文档，再提炼答案；若本地信息不足，兜底访问官网文档。",
+        "version_text": "1.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868243Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868246Z",
+      "config": {}
+    },
+    "multi_agent_collaboration": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "builtin",
+      "metadata": {
+        "name": "multi_agent_collaboration",
+        "description": "Use this skill when another agent's expertise/context is needed, or when the user explicitly asks to involve another agent. First list agents, then use copaw agents chat for two-way communication with replies. | 当需要其他 agent 的专长/上下文，或用户明确要求调用其他 agent 时使用；先查 agent，再用 copaw agents chat 双向通信（有回复）",
+        "version_text": "1.1",
+        "commit_text": "",
+        "signature": "",
+        "source": "builtin",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868331Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868334Z",
+      "config": {}
+    },
+    "Feishu File Sender": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "Feishu File Sender",
+        "description": "飞书文件发送器 — 为 CoPaw 补齐飞书渠道文件投递能力，通过飞书 OpenAPI 上传并发送 agent 生成的本地文件",
+        "version_text": "2.0.0",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [
+            "python3"
+          ],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867501Z"
+      },
+      "requirements": {
+        "require_bins": [
+          "python3"
+        ],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867506Z",
+      "config": {}
+    },
+    "Pinchtab Browser Automation": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "Pinchtab Browser Automation",
+        "description": "",
+        "version_text": "",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867553Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867557Z",
+      "config": {}
+    },
+    "Self-Improving Agent (Proactive Self-Reflection)-active": {
+      "enabled": true,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "Self-Improving Agent (Proactive Self-Reflection)-active",
+        "description": "Self-reflection + Self-criticism + Self-learning + Self-organizing memory. Agent evaluates its own work, catches mistakes, and improves permanently. Use before starting work and after responding to the user.",
+        "version_text": "1.2.10",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.867658Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.867661Z",
+      "config": {}
+    },
+    "xiaohongshu-ops": {
+      "enabled": false,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "xiaohongshu-ops",
+        "description": "小红书相关操作，覆盖账号定位、选题研究、内容生产、发布执行与复盘修复的小红书全链路运营技能。凡是小红书的浏览/搜索/发布/评论任务，默认必须使用 OpenClaw 内置浏览器流程并指定 profile=\"openclaw\"；除非用户明确要求，否则不要使用系统 open 或外部浏览器。",
+        "version_text": "",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-04T12:56:09.868705Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-04T12:56:09.868708Z"
+    }
+  }
+}

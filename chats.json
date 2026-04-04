@@ -1,0 +1,38 @@
+{
+  "chats": [
+    {
+      "channel": "console",
+      "created_at": "2026-04-01T16:47:05.726978Z",
+      "id": "14b2c3b8-0155-411b-b280-765bc0081be6",
+      "meta": {},
+      "name": "您好，你是小红书运营",
+      "session_id": "1775062025567",
+      "status": "idle",
+      "updated_at": "2026-04-01T17:12:14.274453Z",
+      "user_id": "default"
+    },
+    {
+      "channel": "feishu",
+      "created_at": "2026-04-03T16:08:18.745115Z",
+      "id": "215e513f-5142-423b-ab4a-4dbf772585ac",
+      "meta": {},
+      "name": "hello",
+      "session_id": "6fb98df9",
+      "status": "idle",
+      "updated_at": "2026-04-04T12:12:47.259566Z",
+      "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+    },
+    {
+      "channel": "console",
+      "created_at": "2026-04-04T00:00:00.039161Z",
+      "id": "c358a721-55cb-461f-ba0d-b20156378e2e",
+      "meta": {},
+      "name": "请收集最近 48 小",
+      "session_id": "6fb98df9",
+      "status": "idle",
+      "updated_at": "2026-04-04T12:02:00.007997Z",
+      "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+    }
+  ],
+  "version": 1
+}

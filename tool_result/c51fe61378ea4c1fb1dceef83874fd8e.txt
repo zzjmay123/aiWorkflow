@@ -1,0 +1,100 @@
+[
+  {
+    "name": ".gitignore",
+    "path": ".gitignore",
+    "sha": "167c8f1c4459c8786c8866169f30edc77e0f78e2",
+    "size": 445,
+    "url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/.gitignore?ref=main",
+    "html_url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/.gitignore",
+    "git_url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/167c8f1c4459c8786c8866169f30edc77e0f78e2",
+    "download_url": "https://raw.githubusercontent.com/Xiangyu-CAS/xiaohongshu-ops-skill/main/.gitignore",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/.gitignore?ref=main",
+      "git": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/167c8f1c4459c8786c8866169f30edc77e0f78e2",
+      "html": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/.gitignore"
+    }
+  },
+  {
+    "name": "Openclaw一键安装.md",
+    "path": "Openclaw一键安装.md",
+    "sha": "56fa0d51a9aa75ba358a33ad7211f3b087d64dd9",
+    "size": 4784,
+    "url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/Openclaw%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85.md?ref=main",
+    "html_url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/Openclaw%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85.md",
+    "git_url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/56fa0d51a9aa75ba358a33ad7211f3b087d64dd9",
+    "download_url": "https://raw.githubusercontent.com/Xiangyu-CAS/xiaohongshu-ops-skill/main/Openclaw一键安装.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/Openclaw%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85.md?ref=main",
+      "git": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/56fa0d51a9aa75ba358a33ad7211f3b087d64dd9",
+      "html": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/Openclaw%E4%B8%80%E9%94%AE%E5%AE%89%E8%A3%85.md"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "ca82b307e23ff0ce3dc7790fdb1d01c8935b3e2d",
+    "size": 5715,
+    "url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/README.md?ref=main",
+    "html_url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/README.md",
+    "git_url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/ca82b307e23ff0ce3dc7790fdb1d01c8935b3e2d",
+    "download_url": "https://raw.githubusercontent.com/Xiangyu-CAS/xiaohongshu-ops-skill/main/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/README.md?ref=main",
+      "git": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/ca82b307e23ff0ce3dc7790fdb1d01c8935b3e2d",
+      "html": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/README.md"
+    }
+  },
+  {
+    "name": "SKILL.md",
+    "path": "SKILL.md",
+    "sha": "5d7c3affaa7c0648925e95fb06dda11141b92839",
+    "size": 9369,
+    "url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/SKILL.md?ref=main",
+    "html_url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/SKILL.md",
+    "git_url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/5d7c3affaa7c0648925e95fb06dda11141b92839",
+    "download_url": "https://raw.githubusercontent.com/Xiangyu-CAS/xiaohongshu-ops-skill/main/SKILL.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/SKILL.md?ref=main",
+      "git": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/blobs/5d7c3affaa7c0648925e95fb06dda11141b92839",
+      "html": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/blob/main/SKILL.md"
+    }
+  },
+  {
+    "name": "assets",
+    "path": "assets",
+    "sha": "6060cd7232e056d7b9d88849eb6cd46331d69d38",
+    "size": 0,
+    "url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/assets?ref=main",
+    "html_url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/tree/main/assets",
+    "git_url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/trees/6060cd7232e056d7b9d88849eb6cd46331d69d38",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/assets?ref=main",
+      "git": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/trees/6060cd7232e056d7b9d88849eb6cd46331d69d38",
+      "html": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/tree/main/assets"
+    }
+  },
+  {
+    "name": "examples",
+    "path": "examples",
+    "sha": "89196834cafe397e0eb0bd6b8c185fe9e374cac3",
+    "size": 0,
+    "url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/examples?ref=main",
+    "html_url": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/tree/main/examples",
+    "git_url": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/trees/89196834cafe397e0eb0bd6b8c185fe9e374cac3",
+    "download_url": null,
+    "type": "dir",
+    "_links": {
+      "self": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/contents/examples?ref=main",
+      "git": "https://api.github.com/repos/Xiangyu-CAS/xiaohongshu-ops-skill/git/trees/89196834cafe397e0eb0bd6b8c185fe9e374cac3",
+      "html": "https://github.com/Xiangyu-CAS/xiaohongshu-ops-skill/tree/main/examples"
+    }
+  },
+  {
+    "name": "knowledge-base",
+    "path": "knowledge-base",

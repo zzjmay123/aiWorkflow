@@ -1,0 +1,93 @@
+{
+  "jobs": [
+    {
+      "dispatch": {
+        "channel": "feishu",
+        "meta": {},
+        "mode": "final",
+        "target": {
+          "session_id": "6fb98df9",
+          "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+        },
+        "type": "channel"
+      },
+      "enabled": true,
+      "id": "138b6653-e3b7-4404-ae38-7a3f10bb0f60",
+      "meta": {},
+      "name": "每日 AI 资讯快报（早 8 点）",
+      "request": {
+        "input": [
+          {
+            "content": [
+              {
+                "text": "请执行每日 AI 资讯快报全自动工作流（早间版）：  1. 运行 auto_news_browser.py 脚本 2. 收集最近 12 小时主流科技媒体的 AI 前沿资讯（10 条） 3. 自动打开浏览器操作 ai-news-generator.html 生成 5 张图片 4. 通过飞书发送图片和小红书发布文案给用户  注意：这是早间版，侧重昨晚到今早的新闻",
+                "type": "text"
+              }
+            ],
+            "role": "user",
+            "type": "message"
+          }
+        ],
+        "session_id": "6fb98df9",
+        "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+      },
+      "runtime": {
+        "max_concurrency": 1,
+        "misfire_grace_seconds": 60,
+        "timeout_seconds": 120
+      },
+      "schedule": {
+        "cron": "0 8 * * *",
+        "timezone": "Asia/Shanghai",
+        "type": "cron"
+      },
+      "task_type": "agent",
+      "text": null
+    },
+    {
+      "dispatch": {
+        "channel": "feishu",
+        "meta": {},
+        "mode": "final",
+        "target": {
+          "session_id": "6fb98df9",
+          "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+        },
+        "type": "channel"
+      },
+      "enabled": true,
+      "id": "175a7247-56b1-4cc1-af9c-03075a92d324",
+      "meta": {},
+      "name": "每日 AI 资讯快报（晚 8 点）",
+      "request": {
+        "input": [
+          {
+            "content": [
+              {
+                "text": "请执行每日 AI 资讯快报全自动工作流（晚间版）：  1. 运行 auto_news_browser.py 脚本 2. 收集最近 12 小时主流科技媒体的 AI 前沿资讯（10 条） 3. 自动打开浏览器操作 ai-news-generator.html 生成 5 张图片 4. 通过飞书发送图片和小红书发布文案给用户  注意：这是晚间版，侧重白天到晚上的新闻，适合用户晚间发布",
+                "type": "text"
+              }
+            ],
+            "role": "user",
+            "type": "message"
+          }
+        ],
+        "session_id": "6fb98df9",
+        "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+      },
+      "runtime": {
+        "max_concurrency": 1,
+        "misfire_grace_seconds": 60,
+        "timeout_seconds": 120
+      },
+      "schedule": {
+        "cron": "0 20 * * *",
+        "timezone": "Asia/Shanghai",
+        "type": "cron"
+      },
+      "task_type": "agent",
+      "text": null
+    }
+  ],
+  "version": 1
+}

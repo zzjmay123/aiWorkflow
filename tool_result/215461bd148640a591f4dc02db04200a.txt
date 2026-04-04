@@ -1,0 +1,29 @@
+{
+  "ok": true,
+  "snapshot": "- document:\n  - heading \"📰 AI 资讯快报生成器\" [ref=e1] [level=1]\n  - heading \"✏️ 编辑内容\" [ref=e2] [level=2]\n  - text: 主标题\n  - textbox [ref=e3]: AI 资讯快报\n  - text: 日期\n  - textbox [ref=e4] [nth=1]: 2026.04.04\n  - heading \"资讯 1\" [ref=e5] [level=3]\n  - button \"删除\" [ref=e6]\n  - text: 标题\n  - textbox \"输入资讯标题\" [ref=e7]: Claude Code 被中国 00 后开盒\n  - text: 内容\n  - textbox \"输入资讯内容\" [ref=e8]: 一位中国 00 后开发者逆向工程 Claude Code，并公开怒怼 Anthropic 窃取用户代码。开源社区与商业闭源的矛盾再次升级，代码安全话题成为焦点。\n  - text: 来源\n  - textbox \"输入来源\" [ref=e9]: 量子位\n  - heading \"资讯 2\" [ref=e10] [level=3]\n  - button \"删除\" [ref=e11] [nth=1]\n  - text: 标题\n  - textbox \"输入资讯标题\" [ref=e12] [nth=1]: 阿里千问 3.6 登顶中国编程模型榜首\n  - text: 内容\n  - textbox \"输入资讯内容\" [ref=e13] [nth=1]: 全球权威大模型盲测榜单公布，Qwen3.6-Plus 成为中国最强编程模型，在 coding 能力上首次登顶，悟空已率先接入。\n  - text: 来源\n  - textbox \"输入来源\" [ref=e14] [nth=1]: 量子位\n  - heading \"资讯 3\" [ref=e15] [level=3]\n  - button \"删除\" [ref=e16] [nth=2]\n  - text: 标题\n  - textbox \"输入资讯标题\" [ref=e17] [nth=2]: 字节豆包日消耗 120 万亿 Tokens\n  - text: 内容\n  - textbox \"输入资讯内容\" [ref=e18] [nth=2]: 豆包大模型每日 token 消耗量达到惊人级别，AI 应用的算力成本问题再次成为焦点，商业化路径待解。\n  - text: 来源\n  - textbox \"输入来源\" [ref=e19] [nth=2]: AI 前沿观察\n  - button \"+ 添加一条资讯\" [ref=e20]\n  - button \"📸 导出图片\" [ref=e21]\n  - strong: 💡 使用提示：\n  - text: 1. 左侧编辑内容，右侧实时预览 2. 可添加/删除任意条资讯 3. 点击\"导出图片\"下载 PNG 文件 4. 图片尺寸：1080×1440（小红书竖版）\n  - heading \"👁️ 实时预览\" [ref=e22] [level=2]\n  - text: AI 资讯快报 2026.04.04 1、Claude Code 被中国 00 后开盒 一位中国 00 后开发者逆向工程 Claude Code，并公开怒怼 Anthropic 窃取用户代码。开源社区与商业闭源的矛盾再次升级，代码安全话题成为焦点。 来源：量子位 2、阿里千问 3.6 登顶中国编程模型榜首 全球权威大模型盲测榜单公布，Qwen3.6-Plus 成为中国最强编程模型，在 coding 能力上首次登顶，悟空已率先接入。 来源：量子位 3、字节豆包日消耗 120 万亿 Tokens 豆包大模型每日 token 消耗量达到惊人级别，AI 应用的算力成本问题再次成为焦点，商业化路径待解。 来源：AI 前沿观察",
+  "refs": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22"
+  ],
+  "url": "file:///Users/zhouzhenjiang/.copaw/workspaces/5MUwUP/ai-news-generator.html"
+}
