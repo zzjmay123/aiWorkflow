@@ -18,12 +18,21 @@ FEISHU_SEND_MSG_URL = "https://open.feishu.cn/open-apis/im/v1/messages"
 
 # CoPaw 配置文件路径
 COPAW_CONFIG = Path.home() / ".copaw" / "config.json"
+# 当前工作区配置（优先使用）- 使用绝对路径
+WORKSPACE_CONFIG = Path("/Users/zhouzhenjiang/.copaw/workspaces/5MUwUP/agent.json")
 
 
 def load_copaw_config() -> dict:
-    """加载 CoPaw 配置文件"""
+    """加载 CoPaw 配置文件（优先使用工作区配置）"""
+    # 优先使用当前工作区的 agent.json
+    if WORKSPACE_CONFIG.exists():
+        print(f"📋 使用工作区配置：{WORKSPACE_CONFIG}")
+        return json.loads(WORKSPACE_CONFIG.read_text(encoding="utf-8"))
+    
+    # 回退到全局配置
     if not COPAW_CONFIG.exists():
         raise FileNotFoundError(f"CoPaw config not found: {COPAW_CONFIG}")
+    print(f"📋 使用全局配置：{COPAW_CONFIG}")
     return json.loads(COPAW_CONFIG.read_text(encoding="utf-8"))
 
 

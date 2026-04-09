@@ -1,25 +1,13 @@
-# Python
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
-env/
+
+# Virtual environments
 venv/
-*.egg-info/
-
-# 输出目录
-output/
-*.png
-*.jpg
-*.jpeg
-
-# 浏览器缓存
-browser/
-
-# 系统文件
-.DS_Store
-Thumbs.db
+env/
+.env
 
 # IDE
 .vscode/
@@ -27,9 +15,33 @@ Thumbs.db
 *.swp
 *.swo
 
-# 日志
-*.log
+# Temporary test/debug files (keep production scripts)
+tool_result/
+dialog/
+paste_content.txt
+test_*.py
+debug_*.py
+check_*.py
+get_*.py
+push_*.py
+xiaohongshu_copy.txt
 
-# 临时文件
-*.tmp
-*.bak
+# Session data
+sessions/
+file_store/
+jobs.json
+chats.json
+skill.json
+
+# Memory (keep memory/ directory but ignore daily notes)
+memory/2026-*.md
+
+# Analysis reports
+*-analysis.md
+
+# Browser data
+browser/user_data/
+
+# Output (keep directory structure but ignore generated files)
+output/text/*.txt
+output/text/*.md
