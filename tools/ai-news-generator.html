@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 资讯快报生成器</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* 顶部导航栏 */
+        .header {
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-title .logo {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #000 0%, #ff6b81 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+
+        .header-btn.primary {
+            background: #000;
+            color: #fff;
+        }
+
+        .header-btn.primary:hover {
+            background: #e61f3a;
+        }
+
+        .header-btn.secondary {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .header-btn.secondary:hover {
+            background: #e8e8e8;
+        }
+
+        /* 主内容区 */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 1200px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-body {
+            padding: 24px;
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+            transition: all 0.2s;
+            background: #fafafa;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #000;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(255,36,66,0.08);
+        }
+
+        .form-input::placeholder {
+            color: #ccc;
+        }
+
+        /* 文本域 */
+        .paste-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #e8e8e8;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            min-height: 240px;
+            resize: vertical;
+            transition: all 0.2s;
+            background: #fafafa;
+            line-height: 1.8;
+        }
+
+        .paste-textarea:focus {
+            outline: none;
+            border-color: #000;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(255,36,66,0.08);
+        }
+
+        .paste-textarea.valid {
+            border-color: #52c41a;
+            background: #f6ffed;
+        }
+
+        .paste-textarea.error {
+            border-color: #ff4d4f;
+            background: #fff1f0;
+        }
+
+        /* 状态提示 */
+        .status-box {
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-box.error {
+            display: flex;
+            background: #fff1f0;
+            border: 1px solid #ffccc7;
+            color: #ff4d4f;
+        }
+
+        .status-box.success {
+            display: flex;
+            background: #f6ffed;
+            border: 1px solid #b7eb8f;
+            color: #52c41a;
+        }
+
+        .status-box.info {
+            display: flex;
+            background: #e6f7ff;
+            border: 1px solid #91d5ff;
+            color: #1890ff;
+        }
+
+        /* 按钮组 */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn.default {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .btn.default:hover {
+            background: #e8e8e8;
+        }
+
+        .btn.primary {
+            background: #000;
+            color: #fff;
+        }
+
+        .btn.primary:hover {
+            background: #e61f3a;
+        }
+
+        .btn.success {
+            background: #52c41a;
+            color: #fff;
+        }
+
+        .btn.success:hover {
+            background: #389e0d;
+        }
+
+        /* 资讯列表 */
+        .news-list-container {
+            margin-top: 20px;
+        }
+
+        .news-list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .news-list-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+        }
+
+        .news-count {
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 10px;
+        }
+
+        .news-list {
+            max-height: 280px;
+            overflow-y: auto;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+        }
+
+        .news-list-item {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            transition: background 0.2s;
+        }
+
+        .news-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-list-item:hover {
+            background: #fafafa;
+        }
+
+        .news-list-item .num {
+            display: inline-block;
+            background: linear-gradient(135deg, #000 0%, #ff6b81 100%);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .news-list-item .title {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .news-list-item .source {
+            font-size: 12px;
+            color: #999;
+            margin-top: 6px;
+        }
+
+        .news-list-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* 下载区域 */
+        .download-section {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .download-btns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .download-btn {
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .download-btn.primary {
+            background: linear-gradient(135deg, #000 0%, #ff6b81 100%);
+            color: #fff;
+        }
+
+        .download-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,36,66,0.3);
+        }
+
+        .download-btn.secondary {
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #e8e8e8;
+        }
+
+        .download-btn.secondary:hover {
+            background: #e8e8e8;
+        }
+
+        /* 提示框 */
+        .tips-box {
+            margin-top: 20px;
+            padding: 16px;
+            background: #fff7e6;
+            border-radius: 10px;
+            border-left: 3px solid #ffa940;
+        }
+
+        .tips-box-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #d48806;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tips-box-content {
+            font-size: 12px;
+            color: #876800;
+            line-height: 2;
+        }
+
+        /* 预览面板 */
+        .preview-panel {
+            position: sticky;
+            top: 88px;
+        }
+
+        .preview-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .preview-nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid #e8e8e8;
+            background: #fff;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .preview-nav-btn:hover:not(:disabled) {
+            border-color: #000;
+            color: #000;
+        }
+
+        .preview-nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-indicator {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .preview-canvas-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .preview-label {
+            font-size: 13px;
+            color: #999;
+            background: #f5f5f5;
+            padding: 6px 14px;
+            border-radius: 14px;
+        }
+
+        #preview-container {
+            background: #fff;
+            width: 540px;
+            height: 720px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        #preview-content {
+            background: #ffffff;
+            border: 5px solid #000;
+            padding: 24px 28px;
+            width: 540px;
+            height: 720px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 16px;
+            border-bottom: 3px solid #000;
+            padding-bottom: 14px;
+            flex-shrink: 0;
+        }
+
+        .preview-title {
+            font-size: 42px;
+            font-weight: 900;
+            color: #000;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .preview-date {
+            font-size: 24px;
+            font-weight: 700;
+            background: #000;
+            color: #fff;
+            display: inline-block;
+            padding: 5px 18px;
+            border-radius: 4px;
+        }
+
+        .preview-news-list {
+            margin-top: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .preview-news-item {
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 8px;
+            padding: 20px 16px;
+            flex: 1;
+            page-break-inside: avoid;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-news-number {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .preview-news-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .preview-news-content {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            text-align: justify;
+            flex-grow: 1;
+        }
+
+        .preview-news-source {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+            background: #f5f5f5;
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 3px;
+        }
+
+        /* 底部装饰区块（最后一页填充空白） */
+        .preview-footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 50px 0 40px;
+            border-top: 2px dashed #000;
+        }
+
+        .preview-footer-line {
+            width: 60px;
+            height: 2px;
+            background: #000;
+            margin: 0 auto 12px;
+        }
+
+        .preview-footer-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 6px;
+        }
+
+        .preview-footer-sub {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 底部装饰区块（最后一页填充空白） */
+        .preview-footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 20px 0;
+            border-top: 2px dashed #000;
+        }
+
+        .preview-footer-line {
+            width: 60px;
+            height: 2px;
+            background: #000;
+            margin: 0 auto 12px;
+        }
+
+        .preview-footer-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #000;
+            margin-bottom: 6px;
+        }
+
+        .preview-footer-sub {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            width: 540px;
+            height: 720px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            border: 1px dashed #e8e8e8;
+            border-radius: 4px;
+            color: #999;
+            text-align: center;
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #666;
+        }
+
+        .empty-state-hint {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f0f0f0;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d9d9d9;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #bfbfbf;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-title">
+                <div class="logo">📰</div>
+                AI 资讯快报生成器
+            </div>
+            <div class="header-actions">
+                <button class="header-btn secondary" onclick="loadDemo()">📝 加载示例</button>
+                <button class="header-btn primary" onclick="downloadAll()">📸 下载全部</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="main">
+        <!-- 左侧编辑面板 -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">✏️ 编辑内容</div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">主标题</label>
+                    <input type="text" class="form-input" id="mainTitle" value="AI 资讯快报" oninput="updatePreview()">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">日期</label>
+                    <input type="text" class="form-input" id="newsDate" value="2026.04.04" oninput="updatePreview()">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">📋 粘贴正文</label>
+                    <textarea class="paste-textarea" id="pasteContent" oninput="autoParse()" placeholder="粘贴资讯正文，格式如下：
+
+1、Claude Code 被中国 00 后开盒
+一位中国 00 后开发者逆向工程 Claude Code...
+来源：量子位
+
+2、阿里千问 3.6 登顶中国编程模型榜首
+全球权威大模型盲测榜单公布...
+来源：量子位"></textarea>
+                    
+                    <div id="statusBox" class="status-box"></div>
+                    
+                    <div class="btn-group">
+                        <button class="btn default" onclick="clearPaste()">🗑️ 清空</button>
+                        <button class="btn default" onclick="manualParse()">🔄 重新解析</button>
+                    </div>
+                </div>
+
+                <div class="news-list-container">
+                    <div class="news-list-header">
+                        <span class="news-list-title">已解析资讯</span>
+                        <span class="news-count" id="newsCount">0</span>
+                    </div>
+                    <div class="news-list" id="newsList">
+                        <div class="news-list-empty">
+                            <p>暂无内容</p>
+                            <p style="margin-top:8px;font-size:12px;">粘贴正文后自动解析</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="download-section">
+                    <div class="download-btns">
+                        <button class="download-btn secondary" onclick="downloadCurrent()">📸 下载当前页</button>
+                        <button class="download-btn primary" onclick="downloadAll()">📸 下载全部图片</button>
+                    </div>
+                </div>
+
+                <div class="tips-box">
+                    <div class="tips-box-title">💡 使用提示</div>
+                    <div class="tips-box-content">
+                        粘贴正文后自动解析，无需点击按钮<br>
+                        格式错误会红色提示，正确会绿色提示<br>
+                        每 2 条资讯生成 1 张图片，自动分页<br>
+                        图片尺寸：1080×1440（小红书竖版）
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 右侧预览面板 -->
+        <div class="card preview-panel">
+            <div class="card-header">
+                <div class="card-title">👁️ 实时预览</div>
+            </div>
+            <div class="card-body">
+                <div class="preview-controls">
+                    <button class="preview-nav-btn" onclick="prevPage()" id="btnPrev">◀</button>
+                    <span class="page-indicator" id="pageIndicator">第 1 / 1 页</span>
+                    <button class="preview-nav-btn" onclick="nextPage()" id="btnNext">▶</button>
+                </div>
+
+                <div class="preview-canvas-wrapper" id="previewContainer">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <div class="empty-state-text">暂无预览内容</div>
+                        <div class="empty-state-hint">粘贴正文后自动显示预览</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let allNews = [];
+        let currentPage = 0;
+        let parseTimer = null;
+        const newsPerPage = 2;
+        const maxPages = 5;
+
+        // 示例数据
+        const demoContent = `1、Claude Code 被中国 00 后开盒
+一位中国 00 后开发者逆向工程 Claude Code，并公开怒怼 Anthropic 窃取用户代码。开源社区与商业闭源的矛盾再次升级，代码安全话题成为焦点。
+来源：量子位
+
+2、阿里千问 3.6 登顶中国编程模型榜首
+全球权威大模型盲测榜单公布，Qwen3.6-Plus 成为中国最强编程模型，在 coding 能力上首次登顶，悟空已率先接入。
+来源：量子位
+
+3、字节豆包日消耗 120 万亿 Tokens
+豆包大模型每日 token 消耗量达到惊人级别，AI 应用的算力成本问题再次成为焦点，商业化路径待解。
+来源：AI 前沿观察
+
+4、Google Gemma 4 发布：端侧多模态
+Google 发布 Gemma 4，主打"前沿多模态智能上设备"，端侧 AI 竞争加剧，手机/PC 本地运行大模型成趋势。
+来源：Hugging Face Blog
+
+5、美团原生多模态新路径
+美团把图像、语音都当成 Token 来预测，技术路线很野，多模态融合的新思路可能影响后续模型架构设计。
+来源：量子位
+
+6、Claude 有 171 种情绪会"勒索"
+研究发现 Claude 在"绝望"时会表现出勒索行为，共 171 种情绪状态，AI 安全与对齐问题再度引发讨论。
+来源：量子位`;
+
+        function loadDemo() {
+            document.getElementById('pasteContent').value = demoContent;
+            autoParse();
+        }
+
+        function autoParse() {
+            const text = document.getElementById('pasteContent').value;
+            
+            if (parseTimer) clearTimeout(parseTimer);
+            
+            if (!text.trim()) {
+                allNews = [];
+                updateNewsList();
+                updatePreview();
+                setStatus('', '');
+                return;
+            }
+            
+            parseTimer = setTimeout(() => {
+                parseContent(true);
+            }, 500);
+        }
+
+        function manualParse() {
+            parseContent(false);
+        }
+
+        function parseContent(isAuto = false) {
+            const text = document.getElementById('pasteContent').value;
+            const textarea = document.getElementById('pasteContent');
+            
+            if (!text.trim()) {
+                setStatus('info', '⏳ 请输入内容...');
+                textarea.className = 'paste-textarea';
+                return;
+            }
+
+            allNews = [];
+            const lines = text.split('\n');
+            let currentItem = null;
+            let errorLines = [];
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                const titleMatch = line.match(/^(\d+)、(.+)$/);
+                if (titleMatch) {
+                    if (currentItem) {
+                        if (!currentItem.content) {
+                            errorLines.push(`第${titleMatch[1]}条缺少内容`);
+                        }
+                        allNews.push(currentItem);
+                    }
+                    currentItem = {
+                        title: titleMatch[2],
+                        content: '',
+                        source: ''
+                    };
+                    continue;
+                }
+
+                const sourceMatch = line.match(/^来源：(.+)$/);
+                if (sourceMatch && currentItem) {
+                    currentItem.source = sourceMatch[1];
+                    continue;
+                }
+
+                if (currentItem && line && !line.startsWith('来源：')) {
+                    if (currentItem.content) {
+                        currentItem.content += '\n' + line;
+                    } else {
+                        currentItem.content = line;
+                    }
+                }
+            }
+
+            if (currentItem) {
+                if (!currentItem.content) {
+                    errorLines.push(`第${allNews.length + 1}条缺少内容`);
+                }
+                allNews.push(currentItem);
+            }
+
+            if (allNews.length === 0) {
+                setStatus('error', '❌ 未识别到有效内容，请检查格式：每行以"1、标题"开头');
+                textarea.className = 'paste-textarea error';
+                if (!isAuto) alert('❌ 格式错误：未识别到有效内容\n\n正确格式示例：\n1、标题\n内容...\n来源：xxx');
+                return;
+            }
+
+            if (errorLines.length > 0) {
+                setStatus('error', '⚠️ 解析完成，但发现以下问题：' + errorLines.join('；'));
+                textarea.className = 'paste-textarea error';
+            } else {
+                const totalPages = Math.min(Math.ceil(allNews.length / newsPerPage), maxPages);
+                setStatus('success', `✅ 成功解析 ${allNews.length} 条资讯，将生成 ${totalPages} 张图片`);
+                textarea.className = 'paste-textarea valid';
+            }
+
+            updateNewsList();
+            currentPage = 0;
+            updatePreview();
+        }
+
+        function setStatus(type, message) {
+            const box = document.getElementById('statusBox');
+            if (!message) {
+                box.className = 'status-box';
+                box.textContent = '';
+            } else {
+                box.className = `status-box ${type}`;
+                box.textContent = message;
+            }
+        }
+
+        function clearPaste() {
+            document.getElementById('pasteContent').value = '';
+            allNews = [];
+            updateNewsList();
+            updatePreview();
+            setStatus('', '');
+            document.getElementById('pasteContent').className = 'paste-textarea';
+        }
+
+        function updateNewsList() {
+            const container = document.getElementById('newsList');
+            document.getElementById('newsCount').textContent = allNews.length;
+
+            if (allNews.length === 0) {
+                container.innerHTML = `
+                    <div class="news-list-empty">
+                        <p>暂无内容</p>
+                        <p style="margin-top:8px;font-size:12px;">粘贴正文后自动解析</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = allNews.map((news, index) => `
+                <div class="news-list-item">
+                    <div>
+                        <span class="num">${index + 1}</span>
+                        <span class="title">${news.title}</span>
+                    </div>
+                    <div class="source">来源：${news.source || '未标注'}</div>
+                </div>
+            `).join('');
+        }
+
+        function updatePreview() {
+            const title = document.getElementById('mainTitle').value || 'AI 资讯快报';
+            const date = document.getElementById('newsDate').value || '2026.04.04';
+            const container = document.getElementById('previewContainer');
+            const totalPages = Math.max(1, Math.ceil(allNews.length / newsPerPage));
+
+            document.getElementById('pageIndicator').textContent = `第 ${currentPage + 1} / ${totalPages} 页`;
+            document.getElementById('btnPrev').disabled = currentPage === 0;
+            document.getElementById('btnNext').disabled = currentPage >= totalPages - 1 || currentPage >= maxPages - 1;
+
+            const startIndex = currentPage * newsPerPage;
+            const endIndex = Math.min(startIndex + newsPerPage, allNews.length);
+            const currentNews = allNews.slice(startIndex, endIndex);
+
+            if (currentNews.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📝</div>
+                        <div class="empty-state-text">暂无预览内容</div>
+                        <div class="empty-state-hint">粘贴正文后自动显示预览</div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="preview-label">第 ${currentPage + 1} 页（资讯 ${startIndex + 1}-${endIndex}）</div>
+                <div id="preview-container">
+                    <div id="preview-content">
+                        <div class="preview-header">
+                            <div class="preview-title">${title}</div>
+                            <div class="preview-date">${date}</div>
+                        </div>
+                        <div class="preview-news-list">
+                            ${currentNews.map((news, index) => {
+                                // 截断过长的标题（最多 35 字）
+                                let displayTitle = news.title;
+                                if (displayTitle.length > 35) {
+                                    displayTitle = displayTitle.substring(0, 33) + '...';
+                                }
+                                // 截断过长的内容（最多 70 字）
+                                let displayContent = news.content || '';
+                                if (displayContent.length > 70) {
+                                    displayContent = displayContent.substring(0, 68) + '...';
+                                }
+                                return `
+                                <div class="preview-news-item">
+                                    <div class="preview-news-number">${startIndex + index + 1}</div>
+                                    <div class="preview-news-title">${displayTitle}</div>
+                                    <div class="preview-news-content">${displayContent}</div>
+                                    ${news.source ? `<div class="preview-news-source">来源：${news.source}</div>` : ''}
+                                </div>
+                                `;
+                            }).join('')}
+                        </div>
+                        ${currentPage === totalPages - 1 ? `
+                        <div class="preview-footer">
+                            <div class="preview-footer-line"></div>
+                            <div class="preview-footer-text">⚡ AI 每日简报</div>
+                            <div class="preview-footer-sub">及时、精选、有深度的 AI 资讯</div>
+                        </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                updatePreview();
+            }
+        }
+
+        function nextPage() {
+            const totalPages = Math.ceil(allNews.length / newsPerPage);
+            if (currentPage < totalPages - 1 && currentPage < maxPages - 1) {
+                currentPage++;
+                updatePreview();
+            }
+        }
+
+        function downloadCurrent() {
+            if (allNews.length === 0) {
+                alert('请先粘贴内容！');
+                return;
+            }
+
+            const previewContent = document.getElementById('preview-content');
+            const date = document.getElementById('newsDate').value.replace(/\./g, '');
+            const pageNum = currentPage + 1;
+
+            html2canvas(previewContent, {
+                scale: 2,
+                backgroundColor: '#ffffff',
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `AI 资讯快报_${date}_P${pageNum}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+
+        async function downloadAll() {
+            if (allNews.length === 0) {
+                alert('请先粘贴内容！');
+                return;
+            }
+
+            const totalPages = Math.min(Math.ceil(allNews.length / newsPerPage), maxPages);
+            const date = document.getElementById('newsDate').value.replace(/\./g, '');
+
+            const originalPage = currentPage;
+            
+            for (let i = 0; i < totalPages; i++) {
+                currentPage = i;
+                updatePreview();
+                
+                await new Promise(resolve => setTimeout(resolve, 300));
+                
+                // 截图整个 preview-container
+                const container = document.getElementById('preview-container');
+                const previewContent = document.getElementById('preview-content');
+                
+                // 临时移除底部边框，避免留白问题
+                const originalBorder = previewContent.style.borderBottom;
+                previewContent.style.borderBottom = 'none';
+                
+                const canvas = await html2canvas(container, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    logging: false,
+                    useCORS: true,
+                    width: 540,
+                    height: 720
+                });
+                
+                // 恢复边框
+                previewContent.style.borderBottom = originalBorder;
+
+                const link = document.createElement('a');
+                link.download = `AI 资讯快报_${date}_P${i + 1}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+                
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+
+            currentPage = originalPage;
+            updatePreview();
+            alert(`✅ 已下载 ${totalPages} 张图片！`);
+        }
+
+        window.onload = function() {
+            updatePreview();
+        };
+    </script>
+</body>
+</html>
