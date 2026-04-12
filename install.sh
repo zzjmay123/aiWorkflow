@@ -1,12 +1,31 @@
 #!/bin/bash
 # AI 资讯自动化工作流 - 一键安装脚本
 # 自动安装所有依赖并配置环境
+# 支持 CoPaw 和 OpenClaw 两种环境
 
 set -e  # 遇到错误立即退出
 
 echo "=========================================="
 echo " AI 资讯自动化工作流 - 安装脚本"
+echo " 支持：CoPaw / OpenClaw"
 echo "=========================================="
+echo ""
+
+# 检测环境
+if [ -d "$HOME/.copaw" ]; then
+    PLATFORM="CoPaw"
+    CONFIG_DIR="$HOME/.copaw"
+    echo "📦 检测到 CoPaw 环境"
+elif [ -d "$HOME/.openclaw" ]; then
+    PLATFORM="OpenClaw"
+    CONFIG_DIR="$HOME/.openclaw"
+    echo "📦 检测到 OpenClaw 环境"
+else
+    PLATFORM="Standalone"
+    CONFIG_DIR="."
+    echo "📦 独立安装模式（无 CoPaw/OpenClaw 环境）"
+fi
+
 echo ""
 
 # 1. 检查 Python
@@ -63,6 +82,11 @@ echo "下一步："
 echo "1. 授权小红书：xiaohongshu auth login"
 echo "2. 生成文本：python3 scripts/ai_news_text_only.py"
 echo "3. 自动发布：python3 scripts/auto_publish_final.py"
+echo ""
+if [ "$PLATFORM" != "Standalone" ]; then
+    echo "💡 提示：你正在使用 $PLATFORM 平台"
+    echo "   配置文件位置：$CONFIG_DIR"
+fi
 echo ""
 echo "详细文档：docs/01-安装指南.md"
 echo ""

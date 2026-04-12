@@ -31,9 +31,43 @@ metadata:
 
 ### 一键安装
 
+#### 方式一：CoPaw 安装（推荐）
+
+```bash
+# 1. 使用 CoPaw 命令安装
+copaw skill install git@github.com:zzjmay123/aiWorkflow.git --branch ai-workflow-skill
+
+# 2. 进入技能目录
+cd ~/.copaw/skills/ai-workflow
+
+# 3. 运行安装脚本
+bash install.sh
+
+# 4. 授权小红书（需扫码）
+xiaohongshu auth login
+```
+
+#### 方式二：OpenClaw 安装
+
+```bash
+# 1. 使用 OpenClaw 命令安装
+claw skill install git@github.com:zzjmay123/aiWorkflow.git --branch ai-workflow-skill
+
+# 2. 进入技能目录
+cd ~/.openclaw/skills/ai-workflow
+
+# 3. 运行安装脚本
+bash install.sh
+
+# 4. 授权小红书（需扫码）
+xiaohongshu auth login
+```
+
+#### 方式三：手动克隆（通用）
+
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/zzjmay123/ai-workflow-skill.git
+git clone -b ai-workflow-skill git@github.com:zzjmay123/aiWorkflow.git ai-workflow-skill
 cd ai-workflow-skill
 
 # 2. 运行安装脚本（自动安装所有依赖）
