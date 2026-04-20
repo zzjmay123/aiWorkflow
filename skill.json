@@ -1,6 +1,6 @@
 {
   "schema_version": "workspace-skill-manifest.v1",
-  "version": 1775307369868,
+  "version": 1776699445945,
   "skills": {
     "web-access": {
       "enabled": true,
@@ -20,13 +20,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868635Z"
+        "updated_at": "2026-04-09T04:51:30.787666Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868638Z",
+      "updated_at": "2026-04-09T04:51:30.787666Z",
       "config": {}
     },
     "pptx": {
@@ -47,13 +47,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868549Z"
+        "updated_at": "2026-04-09T04:51:30.779249Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868552Z",
+      "updated_at": "2026-04-09T04:51:30.779249Z",
       "config": {}
     },
     "pdf-20260401005740": {
@@ -74,13 +74,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868472Z"
+        "updated_at": "2026-04-09T04:51:30.774923Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868475Z",
+      "updated_at": "2026-04-09T04:51:30.774923Z",
       "config": {}
     },
     "pdf": {
@@ -101,13 +101,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868406Z"
+        "updated_at": "2026-04-09T04:51:30.777368Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868409Z",
+      "updated_at": "2026-04-09T04:51:30.777368Z",
       "config": {}
     },
     "xlsx-20260401005742": {
@@ -128,13 +128,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868874Z"
+        "updated_at": "2026-04-09T04:51:30.788477Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868877Z",
+      "updated_at": "2026-04-09T04:51:30.788477Z",
       "config": {}
     },
     "xlsx": {
@@ -155,13 +155,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868795Z"
+        "updated_at": "2026-04-09T04:51:30.796040Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868798Z",
+      "updated_at": "2026-04-09T04:51:30.796040Z",
       "config": {}
     },
     "browser_visible": {
@@ -182,13 +182,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867723Z"
+        "updated_at": "2026-04-09T04:51:30.751670Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867726Z",
+      "updated_at": "2026-04-09T04:51:30.751670Z",
       "config": {}
     },
     "cron": {
@@ -209,13 +209,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867860Z"
+        "updated_at": "2026-04-09T04:51:30.752396Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867863Z",
+      "updated_at": "2026-04-09T04:51:30.752396Z",
       "config": {}
     },
     "docx": {
@@ -236,13 +236,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868087Z"
+        "updated_at": "2026-04-09T04:51:30.765575Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868090Z",
+      "updated_at": "2026-04-09T04:51:30.765575Z",
       "config": {}
     },
     "docx-20260401005738": {
@@ -263,13 +263,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868177Z"
+        "updated_at": "2026-04-09T04:51:30.753341Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868180Z",
+      "updated_at": "2026-04-09T04:51:30.753341Z",
       "config": {}
     },
     "cron-20260401005736": {
@@ -290,13 +290,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867914Z"
+        "updated_at": "2026-04-09T04:51:30.752202Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867917Z",
+      "updated_at": "2026-04-09T04:51:30.752202Z",
       "config": {}
     },
     "copaw_source_index": {
@@ -317,13 +317,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867790Z"
+        "updated_at": "2026-04-09T04:51:30.751850Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867793Z",
+      "updated_at": "2026-04-09T04:51:30.751850Z",
       "config": {}
     },
     "dingtalk_channel": {
@@ -344,13 +344,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867991Z"
+        "updated_at": "2026-04-09T04:51:30.752588Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867994Z",
+      "updated_at": "2026-04-09T04:51:30.752588Z",
       "config": {}
     },
     "guidance": {
@@ -371,13 +371,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868243Z"
+        "updated_at": "2026-04-09T04:51:30.773664Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868246Z",
+      "updated_at": "2026-04-09T04:51:30.773664Z",
       "config": {}
     },
     "multi_agent_collaboration": {
@@ -398,13 +398,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868331Z"
+        "updated_at": "2026-04-09T04:51:30.773946Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868334Z",
+      "updated_at": "2026-04-09T04:51:30.773946Z",
       "config": {}
     },
     "Feishu File Sender": {
@@ -422,20 +422,16 @@
         "source": "customized",
         "protected": false,
         "requirements": {
-          "require_bins": [
-            "python3"
-          ],
+          "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867501Z"
+        "updated_at": "2026-04-09T04:51:30.748289Z"
       },
       "requirements": {
-        "require_bins": [
-          "python3"
-        ],
+        "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867506Z",
+      "updated_at": "2026-04-09T04:51:30.748289Z",
       "config": {}
     },
     "Pinchtab Browser Automation": {
@@ -456,13 +452,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867553Z"
+        "updated_at": "2026-04-09T04:51:30.749222Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867557Z",
+      "updated_at": "2026-04-09T04:51:30.749222Z",
       "config": {}
     },
     "Self-Improving Agent (Proactive Self-Reflection)-active": {
@@ -483,13 +479,13 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.867658Z"
+        "updated_at": "2026-04-09T04:51:30.751411Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.867661Z",
+      "updated_at": "2026-04-09T04:51:30.751411Z",
       "config": {}
     },
     "xiaohongshu-ops": {
@@ -510,13 +506,39 @@
           "require_bins": [],
           "require_envs": []
         },
-        "updated_at": "2026-04-04T12:56:09.868705Z"
+        "updated_at": "2026-04-01T17:10:26.339161Z"
       },
       "requirements": {
         "require_bins": [],
         "require_envs": []
       },
-      "updated_at": "2026-04-04T12:56:09.868708Z"
+      "updated_at": "2026-04-01T17:10:26.339161Z"
+    },
+    "lurenyi-prd-generator": {
+      "enabled": false,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "lurenyi-prd-generator",
+        "description": "基于页面实现、spec.md文档和功能范围，匹配指定模板类型生成面向研发测试的结构化PRD，确保与技术约定一致并核对一致性。Invoke when user asks to generate PRD.",
+        "version_text": "",
+        "commit_text": "",
+        "signature": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-17T00:59:48.131831Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-17T00:59:48.131831Z"
     }
   }
 }

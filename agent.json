@@ -152,7 +152,18 @@
       "require_mention": false,
       "homeserver": "",
       "user_id": "",
-      "access_token": ""
+      "access_token": "",
+      "group_allow_from": [],
+      "groups": {},
+      "encryption": false,
+      "vision_enabled": true,
+      "history_limit": 50,
+      "username": "",
+      "password": "",
+      "device_name": "qwenpaw-worker",
+      "sync_timeout_ms": 30000,
+      "mention_pill_in_body": false,
+      "outbound_structured_mentions": true
     },
     "voice": {
       "enabled": false,
@@ -218,6 +229,21 @@
       "bot_token": "",
       "bot_token_file": "",
       "base_url": ""
+    },
+    "onebot": {
+      "enabled": false,
+      "bot_prefix": "",
+      "filter_tool_messages": false,
+      "filter_thinking": false,
+      "dm_policy": "open",
+      "group_policy": "open",
+      "allow_from": [],
+      "deny_message": "",
+      "require_mention": false,
+      "ws_host": "0.0.0.0",
+      "ws_port": 6199,
+      "access_token": "",
+      "share_session_in_group": false
     }
   },
   "mcp": {
@@ -282,9 +308,11 @@
     },
     "memory_summary": {
       "memory_summary_enabled": true,
+      "memory_prompt_enabled": true,
       "force_memory_search": false,
       "force_max_results": 1,
       "force_min_score": 0.3,
+      "force_memory_search_timeout": 10.0,
       "rebuild_memory_index_on_start": false
     },
     "embedding_config": {
@@ -322,98 +350,112 @@
         "enabled": true,
         "description": "Execute shell commands",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "💻"
       },
       "read_file": {
         "name": "read_file",
         "enabled": true,
         "description": "Read file contents",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "📄"
       },
       "write_file": {
         "name": "write_file",
         "enabled": true,
         "description": "Write content to file",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "✍️"
       },
       "edit_file": {
         "name": "edit_file",
         "enabled": true,
         "description": "Edit file using find-and-replace",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "🖊️"
       },
       "grep_search": {
         "name": "grep_search",
         "enabled": true,
         "description": "Search file contents by pattern",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "🔍"
       },
       "glob_search": {
         "name": "glob_search",
         "enabled": true,
         "description": "Find files matching a glob pattern",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "📁"
       },
       "browser_use": {
         "name": "browser_use",
         "enabled": true,
         "description": "Browser automation and web interaction",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "🌐"
       },
       "desktop_screenshot": {
         "name": "desktop_screenshot",
         "enabled": true,
         "description": "Capture desktop screenshots",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "📸"
       },
       "view_image": {
         "name": "view_image",
         "enabled": true,
         "description": "Load an image into LLM context for visual analysis",
         "display_to_user": false,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "🖼️"
       },
       "view_video": {
         "name": "view_video",
         "enabled": true,
         "description": "Load a video into LLM context for visual analysis",
         "display_to_user": false,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "🎥"
       },
       "send_file_to_user": {
         "name": "send_file_to_user",
         "enabled": true,
         "description": "Send files to user",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "📤"
       },
       "get_current_time": {
         "name": "get_current_time",
         "enabled": true,
         "description": "Get current date and time",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "🕐"
       },
       "set_user_timezone": {
         "name": "set_user_timezone",
         "enabled": true,
         "description": "Set user timezone",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "🌍"
       },
       "get_token_usage": {
         "name": "get_token_usage",
         "enabled": true,
         "description": "Get llm token usage",
         "display_to_user": true,
-        "async_execution": false
+        "async_execution": false,
+        "icon": "📊"
       }
     }
   }

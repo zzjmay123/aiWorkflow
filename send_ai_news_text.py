@@ -9,7 +9,7 @@ from pathlib import Path
 from datetime import datetime
 
 # 读取工作区配置
-with open('/Users/zhouzhenjiang/.copaw/workspaces/5MUwUP/agent.json', 'r') as f:
+with open('/Users/zhouzhenjiang/.copaw/workspaces/5MUwUP/agent.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 
 feishu = config['channels']['feishu']

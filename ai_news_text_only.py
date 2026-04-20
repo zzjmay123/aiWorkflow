@@ -24,18 +24,38 @@ OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def generate_copy(news_data):
     """生成小红书发布文案（参考模板：极简清单体，防超长）"""
-    date_str = datetime.now().strftime('%m.%d')
+    date_str = datetime.now().strftime('%Y-%m-%d')
+    date_short = datetime.now().strftime('%m.%d')
     
-    # 标题：日期 + 核心词
-    first_title = news_data['news'][0]['title'][:15]
-    copy_title = f"📅 {date_str} | {first_title}..."
+    # 判断时段（早报/晚报）
+    hour = datetime.now().hour
+    if 6 <= hour < 12:
+        period = "早报"
+    elif 12 <= hour < 18:
+        period = "午报"
+    else:
+        period = "晚报"
     
-    # 标签放在最前面（参考模板）
-    tags = "#AI 每日资讯  #人工智能前沿  #科技早知道  #AI 行业观察"
+    # 爆款标题库（增加点击率）
+    hot_titles = [
+        f"突破！全球 AI 最新大事件汇总",
+        f"警惕！AI 正在改变这些行业",
+        f"重磅！今天 AI 圈发生了这些大事",
+        f"干货！10 分钟看懂 AI 最新进展",
+        f"必看！AI 从业者不可错过的资讯",
+        f"深度！揭秘 AI 技术背后的真相",
+    ]
+    
+    # 随机选择一个标题，避免每天重复
+    import random
+    copy_title = f"AI {period} | {date_short} | {random.choice(hot_titles)}"
+    
+    # 标签放在最前面（每个标签单独一行，小红书才能识别）
+    tags = "#AI 每日资讯\n#人工智能前沿\n#科技早知道\n#AI 行业观察"
     copy_body = f"{tags}\n\n"
     
     # 序号 Emoji
-    emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟']
+    emojis = ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '']
     
     links_list = []
     
@@ -53,14 +73,14 @@ def generate_copy(news_data):
         if url:
             links_list.append(f"{i+1}. {url}")
     
-    # 链接汇总（放在最后，不占用正文主体空间）
+    # 链接汇总（放在最后，每个链接单独一行）
     if links_list:
         copy_body += f"\n📎 原文链接：\n" + "\n".join(links_list)
     
-    # 固定结尾（参考模板）
+    # 固定结尾（根据时段调整）
     copy_body += f"""
 
-⚡ AI 每日简报，及时、精选、有深度的 AI 资讯
+⚡ AI {period}，及时、精选、有深度的 AI 资讯
 每天几分钟，掌握全球智能浪潮。"""
     
     return copy_title, copy_body
@@ -93,21 +113,17 @@ def main():
     text_file = OUTPUT_DIR / f"AI 资讯快报_{date_str}.txt"
     
     with open(text_file, 'w', encoding='utf-8') as f:
-        f.write("=" * 60 + "\n")
-        f.write(f"AI 资讯快报 - {news_data['date']}\n")
-        f.write("=" * 60 + "\n\n")
+        f.write(f"AI 资讯快报 - {news_data['date']}\n\n")
         
-        f.write("【可粘贴内容】（复制到 ai-news-generator.html）\n")
-        f.write("-" * 60 + "\n")
-        f.write(paste_content)
-        f.write("\n")
+        # 可粘贴内容（干净无分隔线）
+        f.write("=== 复制下方内容到生成器 ===\n")
+        f.write(paste_content.strip() + "\n")
+        f.write("=== 复制结束 ===\n\n")
         
-        f.write("\n" + "=" * 60 + "\n")
-        f.write("【小红书文案】\n")
-        f.write("-" * 60 + "\n")
+        # 小红书文案
+        f.write("[小红书文案]\n")
         f.write(f"标题：{copy_title}\n\n")
         f.write(f"正文：\n{copy_body}\n")
-        f.write("=" * 60 + "\n")
     
     print(f"  ✅ 已保存：{text_file}")
     print()

@@ -4,11 +4,13 @@
 
 ### 核心组件
 1. **ai_news_text_only.py** - 文本生成脚本（每日执行）
-2. **ai-news-generator.html** - 小红书风格图片生成器（用户手动使用）
-3. **feishu-file-sender** - 飞书文件发送技能
-4. **定时任务** - 早 8 点、晚 8 点自动执行
+2. **ai-news-generator.html** - 小红书风格图片生成器（自动调用）
+3. **auto_publish_final.py** - 全自动发布脚本（下载图片 + 发布小红书）
+4. **xiaohongshu-cli** - 小红书官方 CLI 工具（v0.6.4）
+5. **feishu-file-sender** - 飞书文件发送技能
+6. **定时任务** - 早 8 点、晚 8 点自动执行
 
-### 工作流程
+### 工作流程（完整版 - 2026-04-12 更新）
 ```
 定时任务触发 (8:00/20:00)
     ↓
@@ -22,9 +24,20 @@ ai_news_text_only.py 执行
    - 小红书文案（标题 + 正文 + 链接 + 话题标签）
 3. 保存为 txt 文件到 output/text/
     ↓
-feishu-file-sender 发送
+auto_publish_final.py 执行
     ↓
-通过飞书 OpenAPI 发送 txt 文件给用户
+4. Playwright 自动下载图片（5 张）
+   - 打开 ai-news-generator.html
+   - 粘贴可粘贴内容
+   - 更新日期字段
+   - 逐页下载图片到 ~/Downloads/
+    ↓
+5. xiaohongshu-cli 发布
+   - 上传 5 张图片
+   - 发布标题 + 正文
+   - 公开笔记
+    ↓
+6. 飞书通知用户发布完成
 ```
 
 ## 关键配置
@@ -33,6 +46,24 @@ feishu-file-sender 发送
 - **路径**: `/Users/zhouzhenjiang/.copaw/workspaces/5MUwUP/agent.json`
 - **飞书应用**: 运营--Jony (cli_a947f3a013215ccf)
 - **接收人**: ou_975690183c044ff01e03b1d66fb98df9
+
+### 小红书账号配置
+- **工具**: xiaohongshu-cli v0.6.4
+- **安装**: `pipx install xiaohongshu-cli`
+- **账号**: Jony (red_id: 26457944049)
+- **状态**: ✅ 已登录
+
+### Playwright 下载配置（关键！）
+```python
+context = await browser.new_context(
+    accept_downloads=True  # 必须配置，否则下载不工作
+)
+
+async with page.expect_download() as download_info:
+    await download_btn.click()
+download = await download_info.value
+await download.save_as(save_path)
+```
 
 ### 定时任务
 ```bash
@@ -125,6 +156,9 @@ python3 skills/Feishu\ File\ Sender/scripts/feishu_file_sender.py \
 - ✅ **新闻要新** - 最近 24-72 小时内，不要旧闻（2026-04-09 新增）
 - ✅ **参考对标** - AI Daily Brief（分类呈现 + 日期标识）（2026-04-09 新增）
 - ✅ **小红书文案控制在 1000 字内** - 极简清单体，标签前置，链接汇总放末尾（2026-04-09 优化）
+- ✅ **小红书标题格式** - `AI 资讯快报 | MM.DD | AI 圈热点速递`（2026-04-12 新增）
+- ✅ **早晚发布区分** - 早上发"AI 早报"，晚上发"AI 晚报"，标题和图片内容均区分（2026-04-12 新增）
+- ✅ **图片风格** - 每页 2 条新闻，黑色边框，底部 footer 装饰，3:4 比例（1080x1440）（2026-04-12 确认）
 
 ## 脚本优化记录
 

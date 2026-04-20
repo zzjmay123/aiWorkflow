@@ -29,8 +29,28 @@ HTML_GENERATOR = WORK_DIR / "ai-news-generator.html"
 DOWNLOAD_DIR = WORK_DIR / "output" / "downloads"
 DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
+# 历史记录文件（用于去重）
+HISTORY_FILE = WORK_DIR / "news_history.json"
+
 # 超时设置
 TIMEOUT = 60000  # 60 秒
+
+
+def load_history():
+    """加载历史记录"""
+    if HISTORY_FILE.exists():
+        try:
+            with open(HISTORY_FILE, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
+
+def save_history(history):
+    """保存历史记录"""
+    with open(HISTORY_FILE, 'w', encoding='utf-8') as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
 
 
 def is_valid_news_title(text, seen_titles, keywords):
@@ -111,8 +131,12 @@ def fetch_ithome_list():
         url = "https://www.ithome.com/list/"
         headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"}
         res = requests.get(url, headers=headers, timeout=10)
-        res.encoding = 'utf-8'
-        soup = BeautifulSoup(res.text, 'html.parser')
+        # 鲁棒性解码：优先尝试 utf-8，失败则忽略错误，防止编码问题导致脚本崩溃
+        try:
+            html_content = res.content.decode('utf-8')
+        except UnicodeDecodeError:
+            html_content = res.content.decode('utf-8', errors='ignore')
+        soup = BeautifulSoup(html_content, 'html.parser')
         
         for item in soup.select('ul.datel li'):
             t_el = item.select_one('a.t')
@@ -165,19 +189,31 @@ def fetch_real_news():
     """
     真实抓取最新 AI 新闻（最近 24-48 小时）
     策略：优先使用 IT 之家 requests + 其他媒体 Playwright
+    新增：严格去重机制，确保不发旧闻
     """
     from playwright.sync_api import sync_playwright
+    
+    # 加载历史记录
+    history = load_history()
     
     news_items = []
     seen_titles = set()
     
     # 1. 优先抓取 IT 之家 (requests 模式，最快最新)
     ithome_news = fetch_ithome_list()
-    for item in ithome_news:
+    
+    # 【关键修复】限制 IT 之家最多 5 条，确保来源多样性
+    # 去重：过滤掉历史记录中已有的
+    ithome_news = [
+        n for n in ithome_news 
+        if n['title'] not in history.get('titles', {}) and n['url'] not in history.get('urls', {})
+    ]
+    
+    for item in ithome_news[:5]:
         if item['title'] not in seen_titles:
             news_items.append(item)
             seen_titles.add(item['title'])
-    print(f"  ✅ IT 之家抓取 {len(ithome_news)} 条")
+    print(f"  ✅ IT 之家抓取 {len(ithome_news)} 条（使用{min(len(ithome_news), 5)}条）")
 
     # 媒体配置：名称、URL、文章链接特征、摘要选择器
     sources = [
@@ -426,6 +462,11 @@ def fetch_real_news():
                         if not content:
                             content = title + "。点击查看详细内容，了解最新技术进展和行业动态。"
                         
+                        # 去重：检查历史记录
+                        if title in history.get('titles', {}) or full_url in history.get('urls', {}):
+                            print(f"      ⏭️ 历史旧闻跳过：{title[:30]}...")
+                            continue
+
                         # 添加新闻
                         source_name = source["name"]
                         if source.get("category") and source["category"] != "科技":
@@ -439,7 +480,8 @@ def fetch_real_news():
                             "content": content,
                             "source": source_name,
                             "category": source.get("category", "科技"),
-                            "url": full_url
+                            "url": full_url,
+                            "publish_time": pub_time if pub_time else datetime.now()
                         })
                         seen_titles.add(title)
                         collected += 1
@@ -525,6 +567,19 @@ def fetch_real_news():
         print(f"    {src}: {count} 条")
     
     print(f"  ✅ 抓取成功 {len(result)} 条（已按时间排序）")
+    
+    # 保存历史记录
+    if 'titles' not in history:
+        history['titles'] = {}
+    if 'urls' not in history:
+        history['urls'] = {}
+        
+    for item in result:
+        history['titles'][item['title']] = datetime.now().isoformat()
+        if 'url' in item:
+            history['urls'][item['url']] = datetime.now().isoformat()
+    save_history(history)
+    
     return result
 
 
@@ -567,7 +622,7 @@ def format_paste_content(news_data):
     格式化成可粘贴到生成器的正文格式
     格式要求：
     1、标题
-    内容...
+    内容... (确保 50-80 字，避免图片底部空白)
     来源：xxx
     """
     lines = []
@@ -576,6 +631,36 @@ def format_paste_content(news_data):
         content = news.get('content', '')
         source = news.get('source', '未标注')
         
+        if content:
+            # 1. 去掉前缀
+            prefixes = ['最新资讯：', '业界聚焦：', '行业关注：', '热点追踪：', 'IT 之家快讯：', '深度解读：', '最新消息：']
+            for prefix in prefixes:
+                content = content.replace(prefix, '')
+            
+            # 2. 去掉后缀/诱导点击文字
+            suffixes = ['，点击查看详细报道。', '，了解更多行业进展。', '，点击查看。', '，点击获取完整进展信息。', '。']
+            for suffix in suffixes:
+                content = content.replace(suffix, '')
+            
+            # 3. 去掉标题重复部分
+            if content.startswith(title):
+                content = content[len(title):]
+            elif title in content:
+                content = content.replace(title, '')
+            
+            # 清理首尾空白和标点
+            content = content.strip('，。、 ')
+            
+            # 4. 确保内容足够长（50-80 字），避免图片底部空白
+            if len(content) < 50:
+                # 用标题 + 补充说明填充
+                content = f"{title}。本文深入解读该事件的背景、技术细节与行业影响，帮助读者全面理解最新进展。"
+            elif len(content) > 75:
+                content = content[:73] + '...'
+        else:
+            # 没有内容时，用标题 + 补充说明
+            content = f"{title}。本文深入解读该事件的背景、技术细节与行业影响，帮助读者全面理解最新进展。"
+
         lines.append(f"{i}、{title}")
         lines.append(content)
         source = source.replace(" (综合整理)", "") if " (综合整理)" in source else source
