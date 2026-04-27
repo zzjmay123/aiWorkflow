@@ -1,8 +1,6 @@
 ❌ AI 资讯发布失败
 
-步骤：图片下载
-错误：Page.evaluate: ReferenceError: html2canvas is not defined
-    at downloadAll (file:///Users/zhouzhenjiang/workspace/aiWorkflow/ai-news-generator.html:1128:32)
-    at async <anonymous>:316:30
+步骤：小红书发布
+错误：[Errno 2] No such file or directory: '/Users/zhouzhenjiang/.local/bin/xhs'
 
-时间：2026-04-16 20:01:18
+时间：2026-04-27 08:40:50
