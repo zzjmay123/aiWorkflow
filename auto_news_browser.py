@@ -1,3 +1,5 @@
+import xml.etree.ElementTree as ET
+import re
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -13,7 +15,6 @@ import asyncio
 import requests
 from datetime import datetime, timedelta
 from pathlib import Path
-from bs4 import BeautifulSoup
 
 try:
     from playwright.sync_api import sync_playwright
@@ -136,49 +137,50 @@ def fetch_ithome_list():
             html_content = res.content.decode('utf-8')
         except UnicodeDecodeError:
             html_content = res.content.decode('utf-8', errors='ignore')
-        soup = BeautifulSoup(html_content, 'html.parser')
+        # 使用正则表达式替代 BeautifulSoup 解析 IT 之家列表
+        # 匹配模式：<li>...<a class="t" href="url">标题</a>...<i>时间</i>...</li>
+        li_pattern = re.compile(r'<li[^>]*>.*?<a[^>]*class="t"[^>]*href="([^"]*)"[^>]*>([^<]+)</a>.*?<i[^>]*>([^<]+)</i>', re.DOTALL)
+        matches = li_pattern.findall(html_content)
         
-        for item in soup.select('ul.datel li'):
-            t_el = item.select_one('a.t')
-            i_el = item.select_one('i')
+        for raw_url, title, time_str in matches:
+            title = title.strip()
+            time_str = time_str.strip()
             
-            if t_el and i_el:
-                title = t_el.text.strip()
-                time_str = i_el.text.strip()
-                
-                # 解析时间 2026-04-09 04:30:10
-                if '2026-04-' in time_str:
-                    try:
-                        pub_time = datetime.strptime(time_str, '%Y-%m-%d %H:%M:%S')
+            if not title or not time_str:
+                continue
+            
+            # 解析时间 2026-04-09 04:30:10
+            if '2026-04-' in time_str or '2026-04-' in time_str:
+                try:
+                    pub_time = datetime.strptime(time_str, '%Y-%m-%d %H:%M:%S')
+                    
+                    # 过滤：只取最近 24 小时，且与 AI 相关
+                    if (datetime.now() - pub_time).total_seconds() < 24 * 3600:
+                        # AI 关键词检查
+                        ai_keywords = ['AI', '智能', '大模型', '算法', 'GPT', 'Claude', 'OpenAI', 
+                                       '智谱', '通义', '文心', 'LLM', 'AGI', 'Copilot', '机器人',
+                                       '自动驾驶', '算力', '芯片', '训练', '深度学习', '神经网络']
                         
-                        # 过滤：只取最近 24 小时，且与 AI 相关
-                        if (datetime.now() - pub_time).total_seconds() < 24 * 3600:
-                            # AI 关键词检查
-                            ai_keywords = ['AI', '智能', '大模型', '算法', 'GPT', 'Claude', 'OpenAI', 
-                                           '智谱', '通义', '文心', 'LLM', 'AGI', 'Copilot', '机器人',
-                                           '自动驾驶', '算力', '芯片', '训练', '深度学习', '神经网络']
-                            
-                            is_ai = any(kw.lower() in title.lower() for kw in ai_keywords)
-                            
-                            if is_ai:
-                                raw_url = t_el['href'] if t_el.has_attr('href') else ""
-                                if raw_url.startswith('//'):
-                                    full_url = 'https:' + raw_url
-                                elif raw_url.startswith('/'):
-                                    full_url = 'https://www.ithome.com' + raw_url
-                                else:
-                                    full_url = raw_url
-                                    
-                                news_items.append({
-                                    "title": title,
-                                    "content": f"IT 之家快讯：{title}，点击查看详细报道。",
-                                    "source": "IT 之家",
-                                    "category": "快讯",
-                                    "url": full_url,
-                                    "publish_time": pub_time
-                                })
-                    except:
-                        pass
+                        is_ai = any(kw.lower() in title.lower() for kw in ai_keywords)
+                        
+                        if is_ai:
+                            if raw_url.startswith('//'):
+                                full_url = 'https:' + raw_url
+                            elif raw_url.startswith('/'):
+                                full_url = 'https://www.ithome.com' + raw_url
+                            else:
+                                full_url = raw_url
+                                
+                            news_items.append({
+                                "title": title,
+                                "content": f"IT 之家快讯：{title}，点击查看详细报道。",
+                                "source": "IT 之家",
+                                "category": "快讯",
+                                "url": full_url,
+                                "publish_time": pub_time
+                            })
+                except:
+                    pass
     
     except Exception as e:
         print(f"    ⚠️ IT 之家 requests 抓取失败：{e}")
@@ -583,6 +585,75 @@ def fetch_real_news():
     return result
 
 
+
+def fetch_rss_news(url, source_name, keywords=None):
+    """从 RSS 源抓取新闻（使用内置 xml.etree，无需 feedparser）"""
+    news_items = []
+    try:
+        print(f"  📰 正在抓取 RSS 源：{source_name}...")
+        headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"}
+        res = requests.get(url, headers=headers, timeout=10)
+        
+        if res.status_code != 200:
+            print(f"    ⚠️ 状态码：{res.status_code}")
+            return news_items
+            
+        root = ET.fromstring(res.content)
+        items = root.findall('.//item')
+        
+        count = 0
+        for item in items:
+            if count >= 3:  # 每个源最多抓 3 条
+                break
+                
+            title_elem = item.find('title')
+            link_elem = item.find('link')
+            desc_elem = item.find('description')
+            
+            if title_elem is not None:
+                title = title_elem.text.strip() if title_elem.text else ""
+                link = link_elem.text if link_elem is not None else ""
+                desc = desc_elem.text if desc_elem is not None else ""
+                
+                # 关键词过滤
+                if keywords:
+                    text_to_check = (title + " " + (desc or "")).lower()
+                    if not any(kw.lower() in text_to_check for kw in keywords):
+                        continue
+                
+                # 清理 HTML 标签
+                clean_desc = re_mod.sub(r'<[^<]+>', '', desc) if desc else ""
+                clean_desc = re_mod.sub(r'\s+', ' ', clean_desc).strip()
+                
+                # 核心词优先 (GPT, OpenAI 等)
+                core_keywords = ['gpt', 'openai', 'dall-e', 'whisper', 'sora', 'model', 'ai', 'artificial intelligence']
+                is_core = any(kw in title.lower() for kw in core_keywords)
+                
+                if is_core or (clean_desc and len(clean_desc) > 20):
+                    if len(clean_desc) > 150:
+                        clean_desc = clean_desc[:148] + "..."
+                    elif not clean_desc:
+                        clean_desc = f"【{source_name}】{title}"
+                    
+                    # 标记国际源
+                    content_prefix = ""
+                    if any(ord(c) > 127 for c in title):
+                        pass # 有中文
+                    else:
+                        content_prefix = "（国际快讯）"
+
+                    news_items.append({
+                        "title": f"{content_prefix}{title}",
+                        "content": clean_desc,
+                        "source": source_name,
+                        "category": "国际",
+                        "url": link
+                    })
+                    count += 1
+    except Exception as e:
+        print(f"    ⚠️ RSS 抓取失败 {source_name}: {e}")
+    return news_items
+
 def get_news_data():
     """
     获取资讯数据（真实抓取最新新闻）
@@ -610,6 +681,45 @@ def get_news_data():
             {"title": "AI 教育应用拓展", "content": "个性化学习成为趋势，智能辅导系统上线", "source": "机器之心"},
         ]
     
+    
+    # 🌍 [1.5] 抓取国际源 RSS (OpenAI, The Verge, TechCrunch)
+    rss_keywords = ['AI', '人工智能', '大模型', 'GPT', 'OpenAI', '百度', '阿里', '腾讯', '华为', '自动驾驶', '机器人', '芯片', '算力', 'Sora', '文生视频', '多模态', 'Image', 'Model', 'Release']
+    rss_sources = [
+        ("https://openai.com/blog/rss.xml", "OpenAI 官方"),
+        ("https://www.theverge.com/rss/ai-artificial-intelligence/index.xml", "The Verge AI"),
+        ("https://techcrunch.com/category/artificial-intelligence/feed/", "TechCrunch AI"),
+        ("https://hnrss.org/newest?q=ai", "Hacker News AI"),
+    ]
+    
+    rss_items = []
+    for rss_url, rss_name in rss_sources:
+        try:
+            # 调用之前补丁添加的 fetch_rss_news 函数
+            items = fetch_rss_news(rss_url, rss_name, keywords=rss_keywords)
+            rss_items.extend(items)
+            print(f"    ✅ {rss_name} 抓取 {len(items)} 条")
+        except Exception as e:
+            print(f"    ❌ {rss_name} 抓取失败: {e}")
+            
+    # 合并新闻并去重
+    seen_titles = set(n['title'] for n in news_items)
+    for item in rss_items:
+        if item['title'] not in seen_titles:
+            news_items.append(item)
+            seen_titles.add(item['title'])
+            
+    # 🌟 优先排序：GPT/OpenAI/Image 相关置顶
+    priority_kw = ['gpt', 'openai', 'dall-e', 'image', 'model', 'release']
+    priority_news = []
+    other_news = []
+    for n in news_items:
+        if any(k in n['title'].lower() for k in priority_kw):
+            priority_news.append(n)
+        else:
+            other_news.append(n)
+    news_items = priority_news + other_news
+
+
     return {
         "news": news_items,
         "title": "AI 资讯快报",
