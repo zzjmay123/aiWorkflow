@@ -12,9 +12,9 @@
         "type": "channel"
       },
       "enabled": true,
-      "id": "00e4bf9a-41a1-4846-a1ad-bc96aacc9d91",
+      "id": "3c75d4b6-dec2-4583-8836-beb9d6f7b568",
       "meta": {},
-      "name": "每日 AI 资讯（早 8 点）- 全自动发布",
+      "name": "每日 AI 资讯（早 8 点）",
       "request": {
         "input": [
           {
@@ -33,8 +33,8 @@
       },
       "runtime": {
         "max_concurrency": 1,
-        "misfire_grace_seconds": 60,
-        "timeout_seconds": 120
+        "misfire_grace_seconds": 120,
+        "timeout_seconds": 300
       },
       "schedule": {
         "cron": "0 8 * * *",
@@ -42,7 +42,7 @@
         "type": "cron"
       },
       "task_type": "agent",
-      "text": null
+      "text": "请运行 auto_publish_final.py 脚本，完成今日早间 AI 资讯的抓取、图片生成和小红书发布"
     }
   ],
   "version": 1

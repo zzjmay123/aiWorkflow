@@ -1,6 +1,6 @@
 {
   "schema_version": "workspace-skill-manifest.v1",
-  "version": 1777311960850,
+  "version": 1777437688866,
   "skills": {
     "web-access": {
       "enabled": true,
