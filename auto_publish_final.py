@@ -12,6 +12,7 @@ import os
 import sys
 import signal
 import random
+import time
 from pathlib import Path
 from datetime import datetime, timedelta
 
@@ -19,6 +20,28 @@ WORK_DIR = Path('/Users/zhouzhenjiang/.copaw/workspaces/5MUwUP')
 HTML_PATH = 'file:///Users/zhouzhenjiang/workspace/aiWorkflow/ai-news-generator.html?theme=techblue'
 DOWNLOAD_DIR = WORK_DIR / 'output' / 'downloads'
 DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# ================= 辅助函数 =================
+
+def patch_cookie_timestamp():
+    """
+    强制更新小红书 CLI 的 Cookie 时间戳。
+    防止 CLI 在无浏览器环境下尝试连接浏览器刷新 Cookie 导致卡死。
+    """
+    cookie_file = Path.home() / '.xiaohongshu-cli' / 'cookies.json'
+    if cookie_file.exists():
+        try:
+            with open(cookie_file, 'r') as f:
+                data = json.load(f)
+            # 更新 saved_at 为当前时间戳字符串（xhs_cli 需要 float 格式的字符串）
+            data['saved_at'] = str(time.time())
+            with open(cookie_file, 'w') as f:
+                json.dump(data, f, indent=2)
+            print("✅ 已更新 Cookie 时间戳 (防止浏览器连接挂起)")
+        except Exception as e:
+            print(f"⚠️ 更新 Cookie 失败: {e}")
+    else:
+        print("⚠️ 未找到 cookies.json，跳过时间戳更新")
 
 # ================= 配置区 =================
 MAX_RETRIES = 3              # 最大重试次数
@@ -427,6 +450,9 @@ async def main_logic():
     if not images:
         send_feishu_notification(False, title, 0)
         return
+    
+    # 🛡️ 关键修复：更新 Cookie 时间戳，防止 CLI 尝试连接浏览器导致挂起
+    patch_cookie_timestamp()
     
     # [2/3] 发布到小红书（自动重试）
     success = await publish_with_retry(images, title, body, is_private=False)

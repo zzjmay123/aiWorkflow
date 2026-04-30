@@ -1,0 +1,180 @@
+Repo: abi/screenshot-to-code
+Stars: 72406
+Desc: Drop in a screenshot and convert it to clean code (HTML/Tailwind/React/Vue)
+URL: https://github.com/abi/screenshot-to-code
+Topics: []
+---
+Repo: emilwallner/Screenshot-to-code
+Stars: 16478
+Desc: A neural network that transforms a design mock-up into a static website.
+URL: https://github.com/emilwallner/Screenshot-to-code
+Topics: ['cnn', 'cnn-keras', 'deep-learning', 'encoder-decoder', 'floydhub', 'jupyter', 'jupyter-notebook', 'keras', 'lstm', 'machine-learning', 'seq2seq']
+---
+Repo: riccardoperra/codeimage
+Stars: 2069
+Desc: A tool to beautify your code screenshots. Built with SolidJS and Fastify.
+URL: https://github.com/riccardoperra/codeimage
+Topics: ['beautiful', 'code', 'codesnippets', 'editor', 'fastify', 'screenshot', 'sharing', 'snippets', 'solid', 'solid-js', 'tweet', 'typescript']
+---
+Repo: mostafasadeghi97/design2code
+Stars: 670
+Desc: Convert any web design screenshot to clean HTML/CSS code
+URL: https://github.com/mostafasadeghi97/design2code
+Topics: ['ai', 'code-generation', 'coding-assistant', 'design-to-code', 'gpt4', 'openai', 'vision']
+---
+Repo: Microstrong0305/Screenshot-to-Code
+Stars: 40
+Desc: Generating Code from a Graphical User Interface Screenshot
+URL: https://github.com/Microstrong0305/Screenshot-to-Code
+Topics: []
+---
+Repo: PaulGwamanda/Pix2code-Screenshot-to-code-dataset-builder
+Stars: 35
+Desc: Dataset builder toolkit for Pix2code Screenshot-to-code 
+URL: https://github.com/PaulGwamanda/Pix2code-Screenshot-to-code-dataset-builder
+Topics: []
+---
+Repo: amaembo/screenshoter
+Stars: 84
+Desc: IDEA plugin to make code screenshots
+URL: https://github.com/amaembo/screenshoter
+Topics: []
+---
+Repo: jsuarezruiz/screenshot-to-maui
+Stars: 50
+Desc: Convert a screenshot to .NET MAUI XAML code
+URL: https://github.com/jsuarezruiz/screenshot-to-maui
+Topics: ['ai', 'dotnet', 'dotnet-maui', 'maui']
+---
+Repo: SergioRibera/sss
+Stars: 121
+Desc: SSS (Super ScreenShot) is a WIP: CLI/Lib to take amazing screenshot of code or screen
+URL: https://github.com/SergioRibera/sss
+Topics: ['code', 'rust', 'rust-lang', 'screen', 'screenshot']
+---
+Repo: LucklySpace/Lucky-client
+Stars: 1423
+Desc: A cross-platform instant messaging client application built with Tauri and Vue 3, featuring one-to-one chat, group chat, file transfer, audio/video calling, screen recording, screenshot capture, and QR code login capabilities.
+URL: https://github.com/LucklySpace/Lucky-client
+Topics: ['element-ui', 'ffmpeg', 'javascript', 'markdown', 'protobuf', 'rust', 'tauri', 'typescript', 'vite', 'vue3', 'webrtc']
+---
+Repo: ashirt-ops/ashirt
+Stars: 57
+Desc: It records your screenshots and code, then lets you upload to ASHIRT
+URL: https://github.com/ashirt-ops/ashirt
+Topics: ['evidence', 'offensive-security', 'red-team', 'redteam', 'reporting']
+---
+Repo: hypersocialinc/shots
+Stars: 98
+Desc: Claude Code/Agent Skill for making App Store screenshots with GPT Image 2 that you can upload. Give it your App Store link & screenshots of your app and it will produce beautiful app store screenshots ready to upload to Apple (or Google)
+URL: https://github.com/hypersocialinc/shots
+Topics: ['app-store-connect', 'app-store-screenshots', 'falai', 'gpt-image', 'gpt-image-2', 'ios-app', 'screenshots']
+---
+Repo: dongshengfengniaowu/Screenshot-to-code-in-Keras
+Stars: 0
+Desc: None
+URL: https://github.com/dongshengfengniaowu/Screenshot-to-code-in-Keras
+Topics: []
+---
+Repo: 0x3C50/easy-code-screenshots
+Stars: 39
+Desc: A plugin for IntelliJ IDEs to create easy, beautiful screenshots of your code
+URL: https://github.com/0x3C50/easy-code-screenshots
+Topics: []
+---
+Repo: P3GLEG/tauri-plugin-mcp
+Stars: 95
+Desc: Allows AI agents (e.g., Cursor, Claude Code) to debug within Tauri apps via screenshot capture, window management, DOM access, and simulated user inputs.
+URL: https://github.com/P3GLEG/tauri-plugin-mcp
+Topics: ['mcp', 'mcp-server', 'tauri']
+---
+Repo: arshad-yaseen/pictocode
+Stars: 21
+Desc: Convert Screenshots 📸 into Code 🧑‍💻
+URL: https://github.com/arshad-yaseen/pictocode
+Topics: ['gpt-vision', 'screenshot-to-code']
+---
+Repo: CKGrafico/ScreenshotToCodeSandbox
+Stars: 20
+Desc: Simply convert a screenshot image to Code Sandbox project
+URL: https://github.com/CKGrafico/ScreenshotToCodeSandbox
+Topics: []
+---
+Repo: jddev273/windows-to-wsl2-screenshots
+Stars: 91
+Desc: Automate Windows screenshots for Claude Code workflows in WSL2. Take screenshots (Win+Shift+S, Win+PrintScreen, Snipping Tool) and   instantly get file paths copied to clipboard for pasting into Claude Code (Terminal or running in VS Code). No more manual   save/copy/paste!
+URL: https://github.com/jddev273/windows-to-wsl2-screenshots
+Topics: ['automation', 'bash', 'claude', 'claude-ai', 'claude-code', 'clipboard', 'developer-tools', 'linux', 'powershell', 'powershell-script', 'productivity', 'screenshot', 'screenshot-automation', 'windows', 'windows-terminal', 'workflow', 'wsl2']
+---
+Repo: Uwami-Mgxekwa/ScreenshotToCode
+Stars: 16
+Desc: Screenshot to code ai and code logic 
+URL: https://github.com/Uwami-Mgxekwa/ScreenshotToCode
+Topics: []
+---
+Repo: oncework/Codeexpander
+Stars: 469
+Desc: Cross-platform text expansion tool that instantly inserts snippets, code templates, and dynamic content via abbreviations — complete with built-in screenshot annotation and clipboard manager to supercharge productivity for developers, writers, and everyday workflows.
+URL: https://github.com/oncework/Codeexpander
+Topics: ['clipboard-manager', 'code-snippets', 'github-gist', 'productivity-tools', 'screenshot-tool', 'snippet-manager', 'tauri-app', 'text-expansion', 'webdav']
+---
+Repo: aws-samples/screenshot-to-code-use-bedrock
+Stars: 3
+Desc: None
+URL: https://github.com/aws-samples/screenshot-to-code-use-bedrock
+Topics: []
+---
+Repo: k-chuang/code-generation-from-images
+Stars: 22
+Desc: [Deep Learning] An end-to-end deep neural network that converts screenshots to Bootstrap (HTML/CSS) code
+URL: https://github.com/k-chuang/code-generation-from-images
+Topics: ['computer-vision', 'content-generation', 'deep-learning', 'deep-neural-networks', 'encoder-decoder-model', 'keras', 'keras-tensorflow', 'nlp', 'tensorflow']
+---
+Repo: Xeven777/clueless-coder
+Stars: 39
+Desc: A powerful desktop application that helps developers solve coding problems by analyzing screenshots of code and providing AI-powered solutions, alternative to interviewcoder and cluely
+URL: https://github.com/Xeven777/clueless-coder
+Topics: ['cluely', 'cluely-alternative', 'coder', 'interview-coder']
+---
+Repo: DougChisholm/App-Mod-Booster
+Stars: 3
+Desc: A project to show how GitHub coding agent can turn screenshots of legacy apps into working proof-of-concepts for cloud native Azure replacements if the legacy database schema is also provided
+URL: https://github.com/DougChisholm/App-Mod-Booster
+Topics: []
+---
+Repo: Mrxyy/screenshot-to-page
+Stars: 100
+Desc: Convert screenshots, image links, or sketches into code using LLM (supporting OpenAi、 Gemini、 Qwen-VL (open-source )) technology, and transform them into web pages with the ability to deploy to the cloud with just one click ☁️.
+URL: https://github.com/Mrxyy/screenshot-to-page
+Topics: ['ai', 'draw-to-code', 'gemini', 'nextjs', 'openai', 'screenshot-to-code', 'screenshot-to-page', 'vercel']
+---
+Repo: austin-hua/Screenshot2Code
+Stars: 29
+Desc: Code screenshots can be a nightmare to deal with, but clipboards aren't much better. Use this repo to convert your code screenshots to text.
+URL: https://github.com/austin-hua/Screenshot2Code
+Topics: ['programming-languages', 'python', 'screenshot']
+---
+Repo: s-smits/ui-screenshot-to-prompt
+Stars: 214
+Desc: ui-screenshot-to-prompt is an AI-powered tool that analyzes UI images to generate detailed prompts for AI coders. It uses computer vision and natural language processing to break down UI components, analyze design patterns, and create comprehensive descriptions for reproducing the design. Very useful for Bolt.new, v0 and other upcoming SaaS
+URL: https://github.com/s-smits/ui-screenshot-to-prompt
+Topics: []
+---
+Repo: fluttercandies/ff_native_screenshot
+Stars: 13
+Desc: A Flutter plugin to take or listen screenshot(support Platform Views) for Android and iOS with native code.
+URL: https://github.com/fluttercandies/ff_native_screenshot
+Topics: []
+---
+Repo: Swizec/remark-code-screenshot
+Stars: 33
+Desc: Remark plugin to turn code blocks into carbon.now.sh screenshots.
+URL: https://github.com/Swizec/remark-code-screenshot
+Topics: ['gatsby', 'markdown', 'remark', 'remark-plugin', 'remarkjs']
+---
+Repo: kouhei-github/screenshot-to-code
+Stars: 10
+Desc: Generating Code from Screenshots
+URL: https://github.com/kouhei-github/screenshot-to-code
+Topics: []
+---

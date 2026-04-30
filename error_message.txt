@@ -1,6 +1,8 @@
 ❌ AI 资讯发布失败
 
 步骤：小红书发布
-错误：[Errno 2] No such file or directory: '/Users/zhouzhenjiang/.local/bin/xhs'
+错误：发布失败：Traceback (most recent call last):
+  File "/Users/zhouzhenjiang/Desktop/QwenPaw.app/Contents/Resources/env/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, ma
 
-时间：2026-04-27 08:40:50
+时间：2026-04-30 08:22:33
