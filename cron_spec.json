@@ -1,0 +1,42 @@
+{
+  "name": "每日 AI 资讯（早 8 点）",
+  "enabled": true,
+  "schedule": {
+    "type": "cron",
+    "cron": "0 8 * * *",
+    "timezone": "Asia/Shanghai"
+  },
+  "task_type": "agent",
+  "text": "请运行 auto_publish_final.py 脚本，完成今日早间 AI 资讯的抓取、图片生成和小红书发布",
+  "request": {
+    "input": [
+      {
+        "content": [
+          {
+            "text": "请运行 auto_publish_final.py 脚本，完成今日早间 AI 资讯的抓取、图片生成和小红书发布",
+            "type": "text"
+          }
+        ],
+        "role": "user",
+        "type": "message"
+      }
+    ],
+    "session_id": "6fb98df9",
+    "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+  },
+  "dispatch": {
+    "type": "channel",
+    "channel": "feishu",
+    "target": {
+      "user_id": "ou_975690183c044ff01e03b1d66fb98df9",
+      "session_id": "6fb98df9"
+    },
+    "mode": "final",
+    "meta": {}
+  },
+  "runtime": {
+    "max_concurrency": 1,
+    "timeout_seconds": 300,
+    "misfire_grace_seconds": 120
+  }
+}

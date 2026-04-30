@@ -1,0 +1,219 @@
+                切换风格 (${themeNames[theme]})
+            `;
+            document.getElementById('current-theme-label').textContent = `Theme: ${theme}`;
+        }
+
+        // 切换密度逻辑
+        function toggleLayout() {
+            itemsPerPage = itemsPerPage === 3 ? 1 : (itemsPerPage === 1 ? 2 : 3);
+            // 更新按钮文字
+            const text = `密度 (${itemsPerPage} 条/页)`;
+            document.getElementById('layoutBtn').innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                ${text}
+            `;
+            currentPage = 0; // 重置页码
+            updatePreview();
+        }
+
+        // 解析逻辑
+        function autoParse() {
+            const content = document.getElementById('pasteContent').value.trim();
+            if (!content) { allNews = []; updatePreview(); return; }
+            parseContent(content);
+        }
+
+        function parseContent(text) {
+            const news = [];
+            // 支持按空行或数字序号分割
+            const blocks = text.split(/\n\s*\n|\n(?=\d+[\u3001.、])/);
+            blocks.forEach(block => {
+                block = block.trim(); if (!block) return;
+                const lines = block.split('\n').filter(l => l.trim());
+                if (lines.length < 2) return;
+                const titleLine = lines[0].replace(/^\d+[\u3001.、]\s*/, '');
+                const sourceLine = lines.find(l => l.startsWith('来源'));
+                const contentLines = lines.filter(l => !l.startsWith('来源') && l !== lines[0]);
+                if (titleLine && contentLines.length > 0) {
+                    news.push({ title: titleLine.trim(), content: contentLines.join(' ').trim(), source: sourceLine ? sourceLine.replace('来源：', '').trim() : '未知' });
+                }
+            });
+            allNews = news; currentPage = 0; updateNewsList(); updatePreview();
+        }
+
+        function updateNewsList() {
+            const listEl = document.getElementById('newsList');
+            const countEl = document.getElementById('newsCount');
+            countEl.textContent = allNews.length;
+            if (allNews.length === 0) {
+                listEl.innerHTML = '<div style="padding:20px; text-align:center; color:#94a3b8; font-size:13px;">暂无内容</div>'; return;
+            }
+            listEl.innerHTML = allNews.map((item, i) => `
+                <div class="news-list-item">
+                    <span class="num">${i + 1}</span>
+                    <span class="title">${item.title}</span>
+                    <div class="source">来源：${item.source}</div>
+                </div>
+            `).join('');
+        }
+
+        function updatePreview() {
+            const contentEl = document.getElementById('preview-content');
+            const title = document.getElementById('mainTitle').value;
+            const date = document.getElementById('newsDate').value;
+            const currentTheme = themes[currentThemeIndex];
+            
+            if (allNews.length === 0) {
+                contentEl.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-tertiary);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><div style="margin-top:16px; font-size:15px;">暂无预览内容</div></div>`;
+                updatePageControls(1); return;
+            }
+
+            const totalPages = Math.ceil(allNews.length / itemsPerPage);
+            const start = currentPage * itemsPerPage;
+            const pageNews = allNews.slice(start, start + itemsPerPage);
+            const singleModeClass = itemsPerPage === 1 ? 'single-mode' : '';
+
+            // 计算星期
+            let weekdayStr = '';
+            if (date) {
+                const d = new Date(date.replace(/\./g, '-'));
+                const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+                if (!isNaN(d)) weekdayStr = weekdays[d.getDay()];
+            }
+
+            let newsHtml = '';
+            
+            if (currentTheme === 'techblue') {
+                // Tech Blue 主题专属 HTML 结构
+                newsHtml = pageNews.map((item, i) => `
+                    <div class="preview-news-item">
+                        <div class="ai-insight-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
+                            AI Insight
+                        </div>
+                        <div class="preview-news-number">${String(start + i + 1).padStart(2, '0')}</div>
+                        <div class="preview-news-title">${item.title}</div>
+                        <div class="preview-news-content">${item.content}</div>
+                        <div class="preview-news-source">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            来源：${item.source}
+                        </div>
+                    </div>
+                `).join('');
+
+                // 处理标题：将第一个词高亮（如"全球早报"中的"早报"）
+                let displayTitle = title;
+                const spaceIndex = title.indexOf(' ');
+                if (spaceIndex > 0) {
+                    displayTitle = `<span style="color:#0f172a">${title.substring(0, spaceIndex)}</span><span class="title-highlight">${title.substring(spaceIndex)}</span>`;
+                }
+
+                contentEl.innerHTML = `
+                    <div class="techblue-bg">
+                        <div class="geo-line"></div>
+                        <div class="wave-bottom"></div>
+                        <svg class="water-wave" viewBox="0 0 540 60" preserveAspectRatio="none">
+                            <path d="M0 30 Q67.5 10 135 30 T270 30 T405 30 T540 30 V60 H0 Z" fill="rgba(37,99,235,0.06)"/>
+                            <path d="M0 35 Q67.5 20 135 35 T270 35 T405 35 T540 35 V60 H0 Z" fill="rgba(37,99,235,0.04)"/>
+                        </svg>
+                    </div>
+                    <div class="preview-header">
+                        <div class="preview-title">${displayTitle}</div>
+                        <div class="preview-subtitle">AI 每日精选 · 洞见科技未来</div>
+                        <div class="preview-meta">
+                            <span class="preview-date">${date}</span>
+                            ${weekdayStr ? `<span class="preview-weekday">${weekdayStr}</span>` : ''}
+                        </div>
+                        <svg class="globe-deco" viewBox="0 0 120 120" fill="none">
+                            <circle cx="60" cy="60" r="45" stroke="rgba(37,99,235,0.15)" stroke-width="2"/>
+                            <ellipse cx="60" cy="60" rx="45" ry="20" stroke="rgba(37,99,235,0.1)" stroke-width="1.5"/>
+                            <ellipse cx="60" cy="60" rx="20" ry="45" stroke="rgba(37,99,235,0.1)" stroke-width="1.5"/>
+                            <circle cx="60" cy="60" r="45" fill="url(#globeGrad)" opacity="0.3"/>
+                            <defs><linearGradient id="globeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient></defs>
+                        </svg>
+                    </div>
+                    <div class="preview-news-list ${singleModeClass}">${newsHtml}</div>
+                `;
+            } else {
+                // 其他主题的默认 HTML
+                newsHtml = pageNews.map((item, i) => `
+                    <div class="preview-news-item">
+                        <div class="preview-news-number">${start + i + 1}</div>
+                        <div class="preview-news-title">${item.title}</div>
+                        <div class="preview-news-content">${item.content}</div>
+                        <div class="preview-news-source">来源：${item.source}</div>
+                    </div>
+                `).join('');
+                
+                contentEl.innerHTML = `
+                    <div class="preview-header">
+                        <div class="preview-title">${title}</div>
+                        <div class="preview-meta">
+                            <span class="preview-date">${date}</span>
+                            <span class="preview-source-tag">AI 每日精选</span>
+                        </div>
+                    </div>
+                    <div class="preview-news-list ${singleModeClass}">${newsHtml}</div>
+                `;
+            }
+            updatePageControls(totalPages);
+        }
+
+        function updatePageControls(totalPages) {
+            document.getElementById('pageIndicator').textContent = `第 ${currentPage + 1} / ${totalPages} 页`;
+            document.getElementById('prevBtn').disabled = currentPage === 0;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages - 1;
+        }
+
+        function prevPage() { if (currentPage > 0) { currentPage--; updatePreview(); } }
+        function nextPage() { const totalPages = Math.ceil(allNews.length / itemsPerPage); if (currentPage < totalPages - 1) { currentPage++; updatePreview(); } }
+        function clearPaste() { document.getElementById('pasteContent').value = ''; allNews = []; currentPage = 0; updateNewsList(); updatePreview(); }
+        function clearAll() { clearPaste(); document.getElementById('mainTitle').value = 'AI 资讯快报'; document.getElementById('newsDate').value = new Date().toISOString().split('T')[0].replace(/-/g, '.'); }
+        function manualParse() { const content = document.getElementById('pasteContent').value.trim(); if (content) parseContent(content); }
+
+        async function downloadCurrent() {
+            if (allNews.length === 0) return;
+            const previewContent = document.getElementById('preview-content');
+            const date = document.getElementById('newsDate').value.replace(/\./g, '');
+            const pageNum = currentPage + 1;
+            html2canvas(previewContent, { scale: 2, backgroundColor: null, logging: false, useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `AI_资讯_${date}_P${pageNum}.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', 0.95);
+                link.click();
+            });
+        }
+
+        async function downloadAll() {
+            if (allNews.length === 0) return;
+            const totalPages = Math.ceil(allNews.length / itemsPerPage);
+            const date = document.getElementById('newsDate').value.replace(/\./g, '');
+            const originalPage = currentPage;
+            for (let i = 0; i < totalPages; i++) {
+                currentPage = i; updatePreview();
+                await new Promise(resolve => setTimeout(resolve, 300));
+                const previewContent = document.getElementById('preview-content');
+                const canvas = await html2canvas(previewContent, { scale: 2, backgroundColor: null, logging: false, useCORS: true });
+                const link = document.createElement('a');
+                link.download = `AI_资讯_${date}_P${i + 1}.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', 0.95);
+                link.click();
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            currentPage = originalPage; updatePreview();
+            alert(`已下载 ${totalPages} 张图片`);
+        }
+
+        window.onload = function() {
+            // 默认使用科技蓝主题
+            document.documentElement.setAttribute('data-theme', 'techblue');
+            document.getElementById('themeBtn').innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                切换风格 (科技蓝)
+            `;
+            document.getElementById('current-theme-label').textContent = 'Theme: techblue';
+            updatePreview();
+        };
+    </script>
+</body>
+</html>

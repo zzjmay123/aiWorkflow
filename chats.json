@@ -1,0 +1,53 @@
+{
+  "chats": [
+    {
+      "channel": "feishu",
+      "created_at": "2026-04-13T16:28:55.652327Z",
+      "id": "29d02855-8573-4219-ae0d-620bde838160",
+      "meta": {},
+      "name": "你在吗",
+      "pinned": false,
+      "session_id": "6fb98df9",
+      "status": "idle",
+      "updated_at": "2026-04-30T02:52:43.975160Z",
+      "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+    },
+    {
+      "channel": "console",
+      "created_at": "2026-04-13T16:29:09.251792Z",
+      "id": "f05b016e-d6d1-414d-ac1c-239da0ef654b",
+      "meta": {},
+      "name": "Error: Unk",
+      "pinned": false,
+      "session_id": "1776097739558",
+      "status": "idle",
+      "updated_at": "2026-04-13T16:38:43.002625Z",
+      "user_id": "default"
+    },
+    {
+      "channel": "console",
+      "created_at": "2026-04-07T00:00:00.250157Z",
+      "id": "14c7f607-ec07-4fd7-a056-d115df4a1324",
+      "meta": {},
+      "name": "请运行 ai_new",
+      "pinned": false,
+      "session_id": "oc_323e2127a3dc19f936eda68b3772452b",
+      "status": "idle",
+      "updated_at": "2026-04-13T16:31:41.772235Z",
+      "user_id": "ou_84a5749d2edf80845c9a5915c6677c75"
+    },
+    {
+      "channel": "console",
+      "created_at": "2026-04-14T00:00:00.048497Z",
+      "id": "78a3c8a8-b024-4a45-a7be-c985c22140b1",
+      "meta": {},
+      "name": "请运行 auto_p",
+      "pinned": false,
+      "session_id": "6fb98df9",
+      "status": "idle",
+      "updated_at": "2026-04-30T00:05:00.043638Z",
+      "user_id": "ou_975690183c044ff01e03b1d66fb98df9"
+    }
+  ],
+  "version": 1
+}

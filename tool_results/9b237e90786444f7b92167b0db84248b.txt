@@ -1,0 +1,177 @@
+def _extract_in_process(source: str) -> dict[str, str] | None:
+    """Extract cookies in-process for macOS Keychain compatibility."""
+    try:
+        loader = _get_browser_loader(source)
+    except ImportError:
+        logger.debug("browser_cookie3 not installed, skipping in-process extraction")
+        return None
+    except ValueError as exc:
+        logger.debug("%s", exc)
+        return None
+
+    try:
+        jar = loader(domain_name=".xiaohongshu.com")
+    except Exception as exc:
+        logger.debug("%s in-process extraction failed: %s", source, exc)
+        return None
+
+    cookies = {cookie.name: cookie.value for cookie in jar if "xiaohongshu.com" in (cookie.domain or "")}
+    if cookies.get("a1"):
+        logger.debug("Loaded XHS cookies from %s in-process", source)
+        return cookies
+
+    logger.debug("No usable a1 cookie found in %s in-process extraction", source)
+    return None
+
+
+def _extract_via_subprocess(source: str) -> dict[str, str] | None:
+    """Extract cookies via subprocess to avoid browser SQLite locks."""
+    extract_script = '''
+import json, sys
+try:
+    import browser_cookie3 as bc3
+except ImportError:
+    print(json.dumps({"error": "browser-cookie3 not installed"}))
+    sys.exit(0)
+
+source = sys.argv[1]
+loader = getattr(bc3, source, None)
+if not loader or not callable(loader):
+    print(json.dumps({"error": f"Unknown browser: {source}"}))
+    sys.exit(0)
+
+try:
+    cj = loader(domain_name=".xiaohongshu.com")
+    cookies = {c.name: c.value for c in cj if "xiaohongshu.com" in (c.domain or "")}
+    if cookies.get("a1"):
+        print(json.dumps({"browser": source, "cookies": cookies}))
+    else:
+        print(json.dumps({"error": "no_a1_cookie"}))
+except Exception as e:
+    print(json.dumps({"error": str(e)}))
+'''
+
+    try:
+        result = subprocess.run(
+            [sys.executable, "-c", extract_script, source],
+            capture_output=True,
+            text=True,
+            timeout=15,
+        )
+
+        if result.returncode != 0:
+            logger.debug("Cookie extraction subprocess failed: %s", result.stderr)
+            return None
+
+        data = json.loads(result.stdout.strip())
+        if "error" in data:
+            logger.debug("Cookie extraction error: %s", data["error"])
+            return None
+
+        return data["cookies"]
+
+    except subprocess.TimeoutExpired:
+        logger.debug("Cookie extraction timed out")
+        return None
+    except (json.JSONDecodeError, KeyError) as e:
+        logger.debug("Cookie extraction parse error: %s", e)
+        return None
+
+
+def extract_browser_cookies(source: str = "auto") -> tuple[str, dict[str, str]] | None:
+    """
+    Extract XHS cookies from browser using browser-cookie3.
+
+    When *source* is ``"auto"``, tries supported browsers with a small
+    thread pool and returns the first one that has valid cookies.
+
+    Returns ``(browser_name, cookies)`` on success, or ``None``.
+    """
+    if source != "auto":
+        cookies = _extract_in_process(source)
+        if cookies:
+            return source, cookies
+        cookies = _extract_via_subprocess(source)
+        if cookies:
+            return source, cookies
+        return None
+
+    # Auto-detect: try all available browsers
+    try:
+        browsers = _available_browsers()
+    except ImportError:
+        logger.debug("browser_cookie3 not installed")
+        return None
+
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+
+    def _try_browser(browser: str) -> tuple[str, dict[str, str]] | None:
+        logger.debug("Auto-detect: trying %s …", browser)
+        cookies = _extract_in_process(browser)
+        if cookies:
+            return browser, cookies
+        cookies = _extract_via_subprocess(browser)
+        if cookies:
+            return browser, cookies
+        return None
+
+    with ThreadPoolExecutor(max_workers=min(4, len(browsers) or 1)) as pool:
+        pending = {pool.submit(_try_browser, browser) for browser in browsers}
+        while pending:
+            done, pending = wait(pending, return_when=FIRST_COMPLETED)
+            for future in done:
+                result = future.result()
+                if result:
+                    for rest in pending:
+                        rest.cancel()
+                    return result
+
+    return None
+
+
+def get_cookies(
+    cookie_source: str = "auto", *, force_refresh: bool = False
+) -> tuple[str, dict[str, str]]:
+    """
+    Multi-strategy cookie acquisition with TTL-based auto-refresh.
+
+    Returns ``(browser_name, cookies)``.
+
+    1. Load saved cookies (skip if stale > 7 days)
+    2. Extract from browser (auto-detect if *cookie_source* is ``"auto"``)
+    3. Raise error if all fail
+    """
+    # 1. Try saved cookies first
+    if not force_refresh:
+        saved = load_saved_cookies()
+        if saved:
+            saved_at = saved.pop("saved_at", 0)
+            if saved_at and (time.time() - float(saved_at)) > _COOKIE_TTL_SECONDS:
+                logger.info(
+                    "Cookies older than %d days, attempting browser refresh",
+                    COOKIE_TTL_DAYS,
+                )
+                result = extract_browser_cookies(cookie_source)
+                if result:
+                    save_cookies(result[1])
+                    return result
+                logger.warning(
+                    "Cookie refresh failed; using existing cookies (age: %d+ days)",
+                    COOKIE_TTL_DAYS,
+                )
+            return "saved", saved
+
+    # 2. Try browser extraction
+    from .exceptions import NoCookieError
+
+    result = extract_browser_cookies(cookie_source)
+    if result:
+        save_cookies(result[1])
+        return result
+
+    raise NoCookieError(cookie_source)
+
+
+def cookies_to_string(cookies: dict[str, str]) -> str:
+    """Format cookies as a cookie header string."""
+    return "; ".join(f"{k}={v}" for k, v in cookies.items())

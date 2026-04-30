@@ -1,0 +1,7 @@
+❌ AI 资讯发布失败
+
+步骤：图片下载
+错误：Page.evaluate: SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.
+    at downloadAll (file:///Users/zhouzhenjiang/workspace/aiWorkflow/ai-news-g
+
+时间：2026-04-30 09:21:17
