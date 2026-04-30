@@ -1,0 +1,132 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.logo {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 涨跌颜色 */
+.text-up {
+  color: #f5222d !important;
+}
+
+.text-down {
+  color: #52c41a !important;
+}
+
+.text-flat {
+  color: #8c8c8c !important;
+}
+
+/* 卡片样式 */
+.stat-card {
+  text-align: center;
+  padding: 20px;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card .value {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 8px 0;
+}
+
+.stat-card .label {
+  color: #8c8c8c;
+  font-size: 14px;
+}
+
+/* 股票行表格 */
+.stock-row-up {
+  background: rgba(245, 34, 45, 0.05);
+}
+
+.stock-row-down {
+  background: rgba(82, 196, 26, 0.05);
+}
+
+/* 趋势标签 */
+.trend-tag {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.trend-strong-uptrend {
+  background: #f6ffed;
+  color: #52c41a;
+  border: 1px solid #b7eb8f;
+}
+
+.trend-uptrend {
+  background: #f6ffed;
+  color: #73d13d;
+  border: 1px solid #d9f7be;
+}
+
+.trend-sideways {
+  background: #fffbe6;
+  color: #faad14;
+  border: 1px solid #ffe58f;
+}
+
+.trend-downtrend {
+  background: #fff2f0;
+  color: #ff4d4f;
+  border: 1px solid #ffccc7;
+}
+
+.trend-strong-downtrend {
+  background: #fff2f0;
+  color: #cf1322;
+  border: 1px solid #ffa39e;
+}
+
+/* 信号标签 */
+.signal-buy {
+  background: #f6ffed;
+  color: #52c41a;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.signal-sell {
+  background: #fff2f0;
+  color: #ff4d4f;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.signal-info {
+  background: #e6f7ff;
+  color: #1890ff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+/* K线图容器 */
+.kline-chart {
+  width: 100%;
+  height: 400px;
+}
+
+.indicator-chart {
+  width: 100%;
+  height: 200px;
+}
