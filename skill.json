@@ -1,6 +1,6 @@
 {
   "schema_version": "workspace-skill-manifest.v1",
-  "version": 1777509786501,
+  "version": 1777513095672,
   "skills": {
     "web-access": {
       "enabled": true,
@@ -544,6 +544,31 @@
         "require_envs": []
       },
       "updated_at": "2026-04-22T20:51:57.385354Z"
+    },
+    "design-slicer": {
+      "enabled": false,
+      "channels": [
+        "all"
+      ],
+      "source": "customized",
+      "metadata": {
+        "name": "design-slicer",
+        "description": "将用户提供的 UI 设计稿截图自动切片为可用的前端素材（背景、卡片、装饰元素）。\n当用户提供一张设计图并要求“还原”、“切图”或“生成素材”时使用。\n",
+        "version_text": "1.0.0",
+        "commit_text": "",
+        "source": "customized",
+        "protected": false,
+        "requirements": {
+          "require_bins": [],
+          "require_envs": []
+        },
+        "updated_at": "2026-04-30T00:43:48.249355Z"
+      },
+      "requirements": {
+        "require_bins": [],
+        "require_envs": []
+      },
+      "updated_at": "2026-04-30T00:43:48.249355Z"
     }
   }
 }

@@ -1,0 +1,619 @@
+            font-weight: 800;
+            color: var(--preview-text);
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .preview-meta { display: flex; align-items: center; gap: 12px; }
+        .preview-date {
+            font-size: 14px; font-weight: 700;
+            color: var(--primary-text);
+            background: var(--primary-light);
+            padding: 4px 10px; border-radius: var(--radius-sm);
+        }
+        .preview-source-tag { font-size: 12px; color: var(--text-tertiary); font-weight: 500; }
+
+        .preview-news-list {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            /* 默认靠上，如果是单条模式，JS 会处理或者 CSS 处理 */
+        }
+        
+        /* 单条模式居中优化 */
+        .preview-news-list.single-mode {
+            justify-content: center;
+        }
+
+        .preview-news-item {
+            background: var(--item-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px; /* 增加内边距，让单条看起来更大气 */
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        /* 如果是单条模式，卡片可以更大一点 */
+        .preview-news-list.single-mode .preview-news-item {
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05);
+        }
+
+        .preview-news-number {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--primary);
+            color: #fff;
+            font-size: 12px; font-weight: 700;
+            padding: 2px 8px; border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+        }
+
+        .preview-news-title {
+            font-size: 18px; /* 单条时字体稍大 */
+            font-weight: 700;
+            color: var(--preview-text);
+            margin-bottom: 12px; line-height: 1.4;
+        }
+        
+        /* 多条模式字体稍小 */
+        .preview-news-list:not(.single-mode) .preview-news-title {
+            font-size: 16px;
+        }
+
+        .preview-news-content {
+            font-size: 14px;
+            color: var(--preview-content-text);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .preview-news-list:not(.single-mode) .preview-news-content {
+            font-size: 13px;
+        }
+
+        .preview-news-source {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            font-weight: 600;
+            border-top: 1px solid var(--border);
+            padding-top: 12px;
+            margin-top: auto;
+        }
+
+        /* ===== TECH BLUE 主题专属样式 ===== */
+        
+        /* 背景装饰 */
+        .techblue-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .techblue-bg .wave-bottom {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 120px;
+            background: linear-gradient(180deg, transparent 0%, rgba(37, 99, 235, 0.06) 100%);
+            border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+        }
+        
+        .techblue-bg .geo-dots {
+            position: absolute;
+            top: 20px; right: 20px;
+            width: 100px; height: 100px;
+            opacity: 0.15;
+        }
+        
+        .techblue-bg .geo-line {
+            position: absolute;
+            top: 60px; left: 40px;
+            width: 60px; height: 2px;
+            background: rgba(37, 99, 235, 0.1);
+            transform: rotate(-15deg);
+        }
+
+        /* Tech Blue 头部样式 */
+        [data-theme="techblue"] .preview-header {
+            position: relative;
+            padding-bottom: 20px;
+            border-bottom: none;
+            z-index: 1;
+        }
+        
+        [data-theme="techblue"] .preview-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(37, 99, 235, 0.2) 50%, transparent 100%);
+        }
+        
+        [data-theme="techblue"] .preview-title {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--preview-text);
+            margin-bottom: 8px;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+        
+        [data-theme="techblue"] .preview-title .title-highlight {
+            color: var(--primary);
+        }
+        
+        [data-theme="techblue"] .preview-subtitle {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+        
+        [data-theme="techblue"] .preview-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        [data-theme="techblue"] .preview-date {
+            font-size: 13px;
+            font-weight: 600;
+            color: #ffffff;
+            background: var(--primary);
+            padding: 6px 14px;
+            border-radius: 8px;
+        }
+        
+        [data-theme="techblue"] .preview-weekday {
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            background: #f1f5f9;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+        
+        /* 地球装饰 */
+        [data-theme="techblue"] .globe-deco {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.6;
+        }
+        
+        /* AI Insight 标签 */
+        [data-theme="techblue"] .ai-insight-tag {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        [data-theme="techblue"] .ai-insight-tag svg {
+            width: 12px;
+            height: 12px;
+        }
+        
+        /* Tech Blue 卡片样式 */
+        [data-theme="techblue"] .preview-news-item {
+            background: #ffffff;
+            border: 1px solid rgba(37, 99, 235, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(37, 99, 235, 0.06);
+            position: relative;
+        }
+        
+        [data-theme="techblue"] .preview-news-number {
+            background: var(--primary);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 8px;
+            min-width: 36px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        
+        [data-theme="techblue"] .preview-news-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 10px;
+            line-height: 1.45;
+        }
+        
+        [data-theme="techblue"] .preview-news-content {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.65;
+            margin-bottom: 14px;
+        }
+        
+        [data-theme="techblue"] .preview-news-source {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 12px;
+            margin-top: auto;
+        }
+        
+        [data-theme="techblue"] .preview-news-source svg {
+            width: 14px;
+            height: 14px;
+            color: #94a3b8;
+        }
+        
+        /* Tech Blue 新闻列表容器 */
+        [data-theme="techblue"] .preview-news-list {
+            gap: 14px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 水波纹底部装饰 */
+        [data-theme="techblue"] .water-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="header-title">
+                <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                AI 资讯快报生成器
+            </div>
+            <div class="header-actions">
+                <!-- 新增：切换风格按钮 -->
+                <button class="header-btn" id="themeBtn" onclick="toggleTheme()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    切换风格 (科技蓝)
+                </button>
+                <!-- 新增：切换密度按钮 (默认 2 条) -->
+                <button class="header-btn" id="layoutBtn" onclick="toggleLayout()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    密度 (2 条/页)
+                </button>
+                <button class="header-btn" onclick="clearAll()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/></svg> 清空
+                </button>
+                <button class="header-btn primary" onclick="downloadAll()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> 下载全部
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Left Panel -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    编辑内容
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label class="form-label">主标题</label>
+                    <input type="text" class="form-input" id="mainTitle" value="AI 资讯快报" oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">日期</label>
+                    <input type="text" class="form-input" id="newsDate" value="2026.04.25" oninput="updatePreview()">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">粘贴正文</label>
+                    <textarea class="paste-textarea" id="pasteContent" oninput="autoParse()" placeholder="粘贴资讯正文..."></textarea>
+                    <div class="btn-group">
+                        <button class="btn" onclick="clearPaste()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/></svg> 清空
+                        </button>
+                        <button class="btn" onclick="manualParse()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/></svg> 重新解析
+                        </button>
+                    </div>
+                </div>
+                <div class="news-list-container">
+                    <div class="news-list-header">
+                        <span class="news-list-title">已解析资讯</span>
+                        <span class="news-count" id="newsCount">0</span>
+                    </div>
+                    <div class="news-list" id="newsList">
+                        <div class="news-list-empty" style="padding:20px; text-align:center; color:#94a3b8; font-size:13px;">暂无内容</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel: Preview -->
+        <div class="card preview-panel">
+            <div class="card-header">
+                <div class="card-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    预览效果
+                </div>
+                <div style="font-size:12px; color:var(--text-tertiary); font-weight:600;" id="current-theme-label">Loading...</div>
+            </div>
+            <div class="card-body">
+                <div class="preview-label">实时预览（540 x 720）</div>
+                <div class="preview-controls">
+                    <button class="preview-nav-btn" id="prevBtn" onclick="prevPage()" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+                    </button>
+                    <span class="page-indicator" id="pageIndicator">第 1 / 1 页</span>
+                    <button class="preview-nav-btn" id="nextBtn" onclick="nextPage()" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                    </button>
+                </div>
+                <div style="position:relative;">
+                    <div id="preview-container">
+                        <div id="preview-content">
+                            <!-- Dynamic Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let allNews = [];
+        let currentPage = 0;
+        let itemsPerPage = 2; // 默认改为 2 条/页 (用户要求)
+        let currentThemeIndex = 0;
+        const themes = ['techblue', 'indigo', 'emerald', 'slate'];
+        const themeNames = {'techblue': '科技蓝', 'indigo': '靛蓝', 'emerald': '翡翠', 'slate': '极夜'};
+
+        // 切换风格逻辑
+        function toggleTheme() {
+            currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+            const theme = themes[currentThemeIndex];
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('themeBtn').innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                切换风格 (${themeNames[theme]})
+            `;
+            document.getElementById('current-theme-label').textContent = `Theme: ${theme}`;
+        }
+
+        // 切换密度逻辑
+        function toggleLayout() {
+            itemsPerPage = itemsPerPage === 3 ? 1 : (itemsPerPage === 1 ? 2 : 3);
+            // 更新按钮文字
+            const text = `密度 (${itemsPerPage} 条/页)`;
+            document.getElementById('layoutBtn').innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                ${text}
+            `;
+            currentPage = 0; // 重置页码
+            updatePreview();
+        }
+
+        // 解析逻辑
+        function autoParse() {
+            const content = document.getElementById('pasteContent').value.trim();
+            if (!content) { allNews = []; updatePreview(); return; }
+            parseContent(content);
+        }
+
+        function parseContent(text) {
+            const news = [];
+            // 支持按空行或数字序号分割
+            const blocks = text.split(/\n\s*\n|\n(?=\d+[\u3001.、])/);
+            blocks.forEach(block => {
+                block = block.trim(); if (!block) return;
+                const lines = block.split('\n').filter(l => l.trim());
+                if (lines.length < 2) return;
+                const titleLine = lines[0].replace(/^\d+[\u3001.、]\s*/, '');
+                const sourceLine = lines.find(l => l.startsWith('来源'));
+                const contentLines = lines.filter(l => !l.startsWith('来源') && l !== lines[0]);
+                if (titleLine && contentLines.length > 0) {
+                    news.push({ title: titleLine.trim(), content: contentLines.join(' ').trim(), source: sourceLine ? sourceLine.replace('来源：', '').trim() : '未知' });
+                }
+            });
+            allNews = news; currentPage = 0; updateNewsList(); updatePreview();
+        }
+
+        function updateNewsList() {
+            const listEl = document.getElementById('newsList');
+            const countEl = document.getElementById('newsCount');
+            countEl.textContent = allNews.length;
+            if (allNews.length === 0) {
+                listEl.innerHTML = '<div style="padding:20px; text-align:center; color:#94a3b8; font-size:13px;">暂无内容</div>'; return;
+            }
+            listEl.innerHTML = allNews.map((item, i) => `
+                <div class="news-list-item">
+                    <span class="num">${i + 1}</span>
+                    <span class="title">${item.title}</span>
+                    <div class="source">来源：${item.source}</div>
+                </div>
+            `).join('');
+        }
+
+        function updatePreview() {
+            const contentEl = document.getElementById('preview-content');
+            const title = document.getElementById('mainTitle').value;
+            const date = document.getElementById('newsDate').value;
+            const currentTheme = themes[currentThemeIndex];
+            
+            if (allNews.length === 0) {
+                contentEl.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-tertiary);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg><div style="margin-top:16px; font-size:15px;">暂无预览内容</div></div>`;
+                updatePageControls(1); return;
+            }
+
+            const totalPages = Math.ceil(allNews.length / itemsPerPage);
+            const start = currentPage * itemsPerPage;
+            const pageNews = allNews.slice(start, start + itemsPerPage);
+            const singleModeClass = itemsPerPage === 1 ? 'single-mode' : '';
+
+            // 计算星期
+            let weekdayStr = '';
+            if (date) {
+                const d = new Date(date.replace(/\./g, '-'));
+                const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+                if (!isNaN(d)) weekdayStr = weekdays[d.getDay()];
+            }
+
+            let newsHtml = '';
+            
+            if (currentTheme === 'techblue') {
+                // Tech Blue 主题专属 HTML 结构
+                newsHtml = pageNews.map((item, i) => `
+                    <div class="preview-news-item">
+                        <div class="ai-insight-tag">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg>
+                            AI Insight
+                        </div>
+                        <div class="preview-news-number">${String(start + i + 1).padStart(2, '0')}</div>
+                        <div class="preview-news-title">${item.title}</div>
+                        <div class="preview-news-content">${item.content}</div>
+                        <div class="preview-news-source">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                            来源：${item.source}
+                        </div>
+                    </div>
+                `).join('');
+
+                // 处理标题：将第一个词高亮（如"全球早报"中的"早报"）
+                let displayTitle = title;
+                const spaceIndex = title.indexOf(' ');
+                if (spaceIndex > 0) {
+                    displayTitle = `<span style="color:#0f172a">${title.substring(0, spaceIndex)}</span><span class="title-highlight">${title.substring(spaceIndex)}</span>`;
+                }
+
+                contentEl.innerHTML = `
+                    <div class="techblue-bg">
+                        <div class="geo-line"></div>
+                        <div class="wave-bottom"></div>
+                        <svg class="water-wave" viewBox="0 0 540 60" preserveAspectRatio="none">
+                            <path d="M0 30 Q67.5 10 135 30 T270 30 T405 30 T540 30 V60 H0 Z" fill="rgba(37,99,235,0.06)"/>
+                            <path d="M0 35 Q67.5 20 135 35 T270 35 T405 35 T540 35 V60 H0 Z" fill="rgba(37,99,235,0.04)"/>
+                        </svg>
+                    </div>
+                    <div class="preview-header">
+                        <div class="preview-title">${displayTitle}</div>
+                        <div class="preview-subtitle">AI 每日精选 · 洞见科技未来</div>
+                        <div class="preview-meta">
+                            <span class="preview-date">${date}</span>
+                            ${weekdayStr ? `<span class="preview-weekday">${weekdayStr}</span>` : ''}
+                        </div>
+                        <svg class="globe-deco" viewBox="0 0 120 120" fill="none">
+                            <circle cx="60" cy="60" r="45" stroke="rgba(37,99,235,0.15)" stroke-width="2"/>
+                            <ellipse cx="60" cy="60" rx="45" ry="20" stroke="rgba(37,99,235,0.1)" stroke-width="1.5"/>
+                            <ellipse cx="60" cy="60" rx="20" ry="45" stroke="rgba(37,99,235,0.1)" stroke-width="1.5"/>
+                            <circle cx="60" cy="60" r="45" fill="url(#globeGrad)" opacity="0.3"/>
+                            <defs><linearGradient id="globeGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3b82f6"/><stop offset="100%" stop-color="#1d4ed8"/></linearGradient></defs>
+                        </svg>
+                    </div>
+                    <div class="preview-news-list ${singleModeClass}">${newsHtml}</div>
+                `;
+            } else {
+                // 其他主题的默认 HTML
+                newsHtml = pageNews.map((item, i) => `
+                    <div class="preview-news-item">
+                        <div class="preview-news-number">${start + i + 1}</div>
+                        <div class="preview-news-title">${item.title}</div>
+                        <div class="preview-news-content">${item.content}</div>
+                        <div class="preview-news-source">来源：${item.source}</div>
+                    </div>
+                `).join('');
+                
+                contentEl.innerHTML = `
+                    <div class="preview-header">
+                        <div class="preview-title">${title}</div>
+                        <div class="preview-meta">
+                            <span class="preview-date">${date}</span>
+                            <span class="preview-source-tag">AI 每日精选</span>
+                        </div>
+                    </div>
+                    <div class="preview-news-list ${singleModeClass}">${newsHtml}</div>
+                `;
+            }
+            updatePageControls(totalPages);
+        }
+
+        function updatePageControls(totalPages) {
+            document.getElementById('pageIndicator').textContent = `第 ${currentPage + 1} / ${totalPages} 页`;
+            document.getElementById('prevBtn').disabled = currentPage === 0;
+            document.getElementById('nextBtn').disabled = currentPage >= totalPages - 1;
+        }
+
+        function prevPage() { if (currentPage > 0) { currentPage--; updatePreview(); } }
+        function nextPage() { const totalPages = Math.ceil(allNews.length / itemsPerPage); if (currentPage < totalPages - 1) { currentPage++; updatePreview(); } }
+        function clearPaste() { document.getElementById('pasteContent').value = ''; allNews = []; currentPage = 0; updateNewsList(); updatePreview(); }
+        function clearAll() { clearPaste(); document.getElementById('mainTitle').value = 'AI 资讯快报'; document.getElementById('newsDate').value = new Date().toISOString().split('T')[0].replace(/-/g, '.'); }
+        function manualParse() { const content = document.getElementById('pasteContent').value.trim(); if (content) parseContent(content); }
+
+        async function downloadCurrent() {
+            if (allNews.length === 0) return;
+            const previewContent = document.getElementById('preview-content');
+            const date = document.getElementById('newsDate').value.replace(/\./g, '');
+            const pageNum = currentPage + 1;
+            html2canvas(previewContent, { scale: 2, backgroundColor: null, logging: false, useCORS: true }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `AI_资讯_${date}_P${pageNum}.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', 0.95);
+                link.click();
+            });
+        }
+
+        async function downloadAll() {
+            if (allNews.length === 0) return;
+            const totalPages = Math.ceil(allNews.length / itemsPerPage);
+            const date = document.getElementById('newsDate').value.replace(/\./g, '');
+            const originalPage = currentPage;
+            for (let i = 0; i < totalPages; i++) {
+                currentPage = i; updatePreview();
+                await new Promise(resolve => setTimeout(resolve, 300));
+                const previewContent = document.getElementById('preview-content');
+                const canvas = await html2canvas(previewContent, { scale: 2, backgroundColor: null, logging: false, useCORS: true });
+                const link = document.createElement('a');
+                link.download = `AI_资讯_${date}_P${i + 1}.jpg`;
+                link.href = canvas.toDataURL('image/jpeg', 0.95);
+                link.click();
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+            currentPage = originalPage; updatePreview();
+            alert(`已下载 ${totalPages} 张图片`);
+        }
+
+        window.onload = function() {
+            // 默认使用科技蓝主题
+            document.documentElement.setAttribute('data-theme', 'techblue');
+            document.getElementById('themeBtn').innerHTML = `
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                切换风格 (科技蓝)
+            `;
+            document.getElementById('current-theme-label').textContent = 'Theme: techblue';
+            updatePreview();
+        };
+    </script>
+</body>
+</html>
